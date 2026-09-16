@@ -539,7 +539,7 @@
         <div class="welcome">
           <span class="big-leaf">🌳</span>
           <h2>Welcome, future programmer!</h2>
-          <p>Test your understanding of Data Structures and Algorithms — from DSA fundamentals, algorithm characteristics, Big-O analysis, and recursion, to arrays, singly, doubly, and circular linked lists. Questions and answer choices are shuffled every attempt, so no two runs are the same.</p>
+          <p>Test your understanding of Data Structures and Algorithms — from DSA fundamentals, algorithm characteristics, Big-O analysis, and recursion, to arrays, stacks, queues, singly, doubly, and circular linked lists. Questions and answer choices are shuffled every attempt, so no two runs are the same.</p>
 
           <div class="stats-row">
             <div class="stat"><span class="num" id="totalQ">0</span><span class="lbl">Questions</span></div>
@@ -554,7 +554,7 @@
             <span>Algorithm Analysis</span>
             <span>Big-O Notation</span>
             <span>Recursion</span>
-            <span>Arrays &amp; Operations</span>
+            <span>Arrays, Stacks &amp; Queues</span>
             <span>Linked Lists</span>
           </div>
 
@@ -645,7 +645,7 @@
 
 <script>
 /* =========================================================
-   QUESTION BANK  (60 items · single blended set)
+   QUESTION BANK  (80 items · single blended set)
    ========================================================= */
 const SECTIONS = [
   {
@@ -953,7 +953,108 @@ const SECTIONS = [
            "head = node50, while tail = None",
            "node50.next = None",
            "head = None, while tail = node50"], a:0,
-        e:"With one node, head and tail both point to it, and its next pointer <b>points to itself</b>." }
+        e:"With one node, head and tail both point to it, and its next pointer <b>points to itself</b>." },
+
+      /* =====================================================
+         NEW ITEMS (20 added)
+         ===================================================== */
+
+      /* ---------- Stack & Queue ---------- */
+      { q:"A stack follows which principle for inserting and removing elements?",
+        o:["FIFO — First In, First Out",
+           "LIFO — Last In, First Out",
+           "LILO — Last In, Last Out",
+           "Random access order"], a:1,
+        e:"A <b>stack</b> follows <b>LIFO (Last In, First Out)</b> — the most recently pushed element is the first one popped." },
+
+      { q:"A queue data structure processes elements in which order?",
+        o:["Last In, First Out",
+           "Random order",
+           "First In, First Out",
+           "Sorted order"], a:2,
+        e:"A <b>queue</b> processes elements in <b>FIFO (First In, First Out)</b> order — like a line of people at a counter." },
+
+      { q:"Which operation adds an element to the top of a stack?",
+        o:["Enqueue","Pop","Push","Peek"], a:2,
+        e:"<b>Push</b> adds an element to the top of the stack. Pop removes the top element, and peek views it without removing." },
+
+      { q:"Which operation removes the front element of a queue?",
+        o:["Push","Pop","Dequeue","Peek"], a:2,
+        e:"<b>Dequeue</b> removes the element at the front of a queue. Enqueue adds a new element at the rear." },
+
+      { q:"In a queue, new elements are inserted at the ______ and removed from the ______.",
+        o:["front; rear","rear; front","top; bottom","middle; top"], a:1,
+        e:"A queue inserts at the <b>rear</b> and removes from the <b>front</b>, maintaining FIFO order." },
+
+      /* ---------- Searching & Sorting ---------- */
+      { q:"What is the time complexity of binary search on a sorted array of n elements?",
+        o:["O(1)","O(log n)","O(n)","O(n log n)"], a:1,
+        e:"Binary search halves the search range each step, so it runs in <b>O(log n)</b> time." },
+
+      { q:"What is the time complexity of linear search in the worst case?",
+        o:["O(1)","O(log n)","O(n)","O(n²)"], a:2,
+        e:"Linear search may have to check every element, so its worst case is <b>O(n)</b>." },
+
+      { q:"Which sorting algorithm repeatedly compares adjacent elements and swaps them if they are out of order?",
+        o:["Merge Sort","Quick Sort","Bubble Sort","Insertion Sort"], a:2,
+        e:"<b>Bubble Sort</b> compares adjacent pairs and swaps them until the array is sorted." },
+
+      { q:"What is the worst-case time complexity of Bubble Sort?",
+        o:["O(n)","O(log n)","O(n²)","O(n log n)"], a:2,
+        e:"Bubble Sort uses two nested loops, giving a worst-case time complexity of <b>O(n²)</b>." },
+
+      { q:"Which sorting algorithm divides the array into halves, sorts each half, and then merges them?",
+        o:["Bubble Sort","Merge Sort","Selection Sort","Insertion Sort"], a:1,
+        e:"<b>Merge Sort</b> divides the array, recursively sorts each half, and merges the sorted halves — a classic divide-and-conquer algorithm." },
+
+      /* ---------- Complexity Analysis (extended) ---------- */
+      { q:"Which asymptotic notation represents the lower bound (best-case) of an algorithm?",
+        o:["Big Oh (O)","Omega (Ω)","Theta (Θ)","Sigma (Σ)"], a:1,
+        e:"<b>Omega (Ω)</b> notation describes the lower bound — the best-case running time of an algorithm." },
+
+      { q:"Which asymptotic notation gives a tight bound by describing both the upper and lower limits?",
+        o:["Big Oh (O)","Omega (Ω)","Theta (Θ)","Sigma (Σ)"], a:2,
+        e:"<b>Theta (Θ)</b> notation bounds a function from both above and below, giving a tight bound." },
+
+      { q:"An algorithm visits every element of an array exactly once. What is its time complexity?",
+        o:["O(1)","O(log n)","O(n)","O(n²)"], a:2,
+        e:"Visiting every element once is <b>O(n)</b> — linear time, since work grows proportionally with input size." },
+
+      { q:"Which time complexity is considered the most efficient for a lookup operation?",
+        o:["O(n²)","O(n)","O(log n)","O(1)"], a:3,
+        e:"<b>O(1)</b> — constant time — is the most efficient, because the work does not depend on the input size." },
+
+      /* ---------- Linked List & Memory ---------- */
+      { q:"In a singly linked list, each node typically stores which two things?",
+        o:["An index and a value",
+           "A value and a pointer to the next node",
+           "Two values and a pointer",
+           "A pointer to the previous node only"], a:1,
+        e:"A singly linked list node stores a <b>data value</b> and a <b>pointer (reference) to the next node</b>." },
+
+      { q:"Which linked list type allows traversal in both forward and backward directions?",
+        o:["Singly linked list","Circular singly linked list","Doubly linked list","Array-based list"], a:2,
+        e:"A <b>doubly linked list</b> has both next and prev pointers, enabling traversal in either direction." },
+
+      { q:"In a circular linked list, the last node's next pointer points to:",
+        o:["Null","The head node","Itself","The middle node"], a:1,
+        e:"In a circular linked list, the last node points back to the <b>head node</b>, forming a closed loop." },
+
+      /* ---------- Recursion & General Concepts ---------- */
+      { q:"What is the essential condition that stops a recursive function from calling itself indefinitely?",
+        o:["Loop counter","Recursive case","Base case","Return type"], a:2,
+        e:"The <b>base case</b> is the condition that stops recursion — without it, the function would recurse forever." },
+
+      { q:"Which approach solves a problem by repeatedly calling a function on smaller versions of the same problem?",
+        o:["Iteration","Recursion","Sorting","Traversal"], a:1,
+        e:"<b>Recursion</b> solves a problem by having a function call itself on smaller versions of the same problem until a base case is reached." },
+
+      { q:"Which of the following is an advantage of using a linked list over an array?",
+        o:["Faster random access by index",
+           "Dynamic size that grows and shrinks easily",
+           "Requires less memory per element",
+           "Always faster to search"], a:1,
+        e:"A linked list has a <b>dynamic size</b> — it grows and shrinks at runtime without needing to pre-allocate or resize a block of memory." }
     ]
   }
 ];
