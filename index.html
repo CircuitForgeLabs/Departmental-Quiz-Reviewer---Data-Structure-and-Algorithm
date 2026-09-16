@@ -359,6 +359,7 @@
     line-height:1.7;
     color:#14532d;
     font-family:"Consolas","Monaco",monospace;
+    white-space:pre-wrap;
   }
 
   .options{display:flex;flex-direction:column;gap:11px}
@@ -538,7 +539,7 @@
         <div class="welcome">
           <span class="big-leaf">🌳</span>
           <h2>Welcome, future programmer!</h2>
-          <p>Test your understanding of Data Structures and Algorithms — from arrays, linked lists, and recursion to Big-O analysis and algorithm strategies. Answer each question and get instant feedback with a short explanation.</p>
+          <p>Test your understanding of Data Structures and Algorithms — from DSA fundamentals, algorithm characteristics, Big-O analysis, and recursion, to arrays, singly, doubly, and circular linked lists. Questions and answer choices are shuffled every attempt, so no two runs are the same.</p>
 
           <div class="stats-row">
             <div class="stat"><span class="num" id="totalQ">0</span><span class="lbl">Questions</span></div>
@@ -548,13 +549,13 @@
 
           <div class="topic-list">
             <span>DSA Fundamentals</span>
-            <span>Java Basics</span>
+            <span>Algorithm Characteristics</span>
             <span>Data Types &amp; ADT</span>
+            <span>Algorithm Analysis</span>
             <span>Big-O Notation</span>
             <span>Recursion</span>
+            <span>Arrays &amp; Operations</span>
             <span>Linked Lists</span>
-            <span>Algorithm Strategies</span>
-            <span>Trace Simulations</span>
           </div>
 
           <div class="mt24">
@@ -644,12 +645,78 @@
 
 <script>
 /* =========================================================
-   QUESTION BANK
+   QUESTION BANK  (60 items · single blended set)
    ========================================================= */
 const SECTIONS = [
   {
-    name: "Part 1 · Java & DSA Fundamentals",
+    name: "Data Structures & Algorithms",
     questions: [
+      /* ---------- DSA Fundamentals ---------- */
+      { q:"An ITE student is designing a program that must organize student records and process them efficiently. Which statement best describes the role of Data Structures and Algorithms (DSA)?",
+        o:["Data structures replace algorithms in all programs.",
+           "Data structures organize data, while algorithms provide steps for processing or solving problems using that data.",
+           "Algorithms only store data in memory.",
+           "DSA is used only for designing user interfaces."], a:1,
+        e:"DSA works as a pair — <b>data structures organize data</b>, while <b>algorithms provide the step-by-step process</b> for using that data to solve problems." },
+
+      { q:"A system works well with 100 records but becomes extremely slow when processing millions of records. Which reason for studying DSA is most directly illustrated?",
+        o:["Efficiency at scale","Program decoration","File naming","Screen resolution"], a:0,
+        e:"This illustrates <b>efficiency at scale</b> — good DSA choices keep a program fast even as the amount of data grows." },
+
+      { q:"A navigation application calculates the fastest route between two locations. According to the lesson, which DSA application is most closely related to this task?",
+        o:["Stack-based text formatting",
+           "Array printing only",
+           "Graph data structures with shortest-path algorithms",
+           "File compression"], a:2,
+        e:"Maps and routes are modeled with <b>graphs</b>, and the fastest route is found using <b>shortest-path algorithms</b> such as Dijkstra's." },
+
+      { q:"A developer is choosing between two structures. Structure X provides faster searching, while Structure Y makes frequent insertion and deletion easier. What should primarily determine the choice?",
+        o:["The structure with the shorter name",
+           "The structure introduced first in the course",
+           "The operations most frequently required by the program",
+           "The structure containing more methods"], a:2,
+        e:"The right choice depends on the <b>operations the program needs most often</b>." },
+
+      { q:"A programmer tests how an algorithm behaves when given an empty collection, one element, and an extremely large collection. Which practical design concern is being addressed?",
+        o:["Programming-language syntax","Algorithm classification","Edge cases and robustness","Data duplication"], a:2,
+        e:"Testing empty, single-element, and extremely large inputs is testing <b>edge cases and robustness</b>." },
+
+      { q:"A programmer needs a structure defined by behavior such as add, remove, and peek, without focusing on how it is stored in memory. Which concept best matches this requirement?",
+        o:["Primitive type","Data item","Abstract Data Type (ADT)","File"], a:2,
+        e:"An <b>Abstract Data Type (ADT)</b> defines behavior (operations) while hiding how the data is actually stored in memory." },
+
+      { q:"A programmer knows the operations available for a stack but does not need to know whether the stack is implemented using an array or linked structure. Which concept allows this?",
+        o:["Algorithm complexity","Data traversal","Iteration","Abstraction"], a:3,
+        e:"<b>Abstraction</b> hides implementation details and exposes only the essential operations." },
+
+      { q:"An algorithm always produces the expected result for all valid inputs. Which characteristic does this demonstrate?",
+        o:["Finiteness","Correctness","Space efficiency","Scalability"], a:1,
+        e:"<b>Correctness</b> means the algorithm produces the expected output for every valid input." },
+
+      { q:"A student writes an algorithm that continues repeating forever even though the required result has already been produced. Which required property of a good algorithm is violated?",
+        o:["Effective","Finite","Input","Output"], a:1,
+        e:"<b>Finiteness</b> is violated — an algorithm must terminate after a finite number of steps." },
+
+      { q:"What must every algorithm have according to its characteristics?",
+        o:["Zero or more well defined inputs",
+           "Exactly one output value only",
+           "Unlimited number of steps allowed",
+           "Dependence on one programming language"], a:0,
+        e:"An algorithm must have <b>zero or more well-defined inputs</b> — inputs are optional, but if present they must be clearly defined." },
+
+      /* ---------- Data Items, Types & ADT ---------- */
+      { q:"The value 25 appears as one individual value inside a collection of student ages. What is this single unit of value called?",
+        o:["Data object","File","Data item","Abstract data type"], a:2,
+        e:"A single unit of value such as 25 is a <b>data item</b>." },
+
+      { q:"A Student record contains an ID number, name, course, and age that together describe one student. What does the complete Student record represent?",
+        o:["Data object or entity","Primitive data type","Data item only","Pointer"], a:0,
+        e:"A collection of related data items forming one logical unit is a <b>data object (entity)</b> — here, one Student record." },
+
+      { q:"A programmer chooses an appropriately sized data type so a large application does not waste unnecessary storage. Which reason for choosing the right data type is illustrated?",
+        o:["Memory efficiency","Traversal","Merging","Recursion"], a:0,
+        e:"Choosing the right data type conserves storage — that is <b>memory efficiency</b>." },
+
       { q:"In Java, what is a programmatic way of storing data so that it can be used efficiently?",
         o:["Algorithm","Data Structure","Compiler","Operating System"], a:1,
         e:"A <b>Data Structure</b> is a programmatic way of organizing and storing data in memory so that it can be used efficiently." },
@@ -662,25 +729,21 @@ const SECTIONS = [
         o:["Implementation","Interface","Algorithm","Compiler"], a:1,
         e:"The <b>interface</b> defines the set of operations a data structure supports, while the implementation is how those operations are actually carried out." },
 
-      { q:"Which characteristic of a data structure ensures that its implementation should implement its interface correctly?",
-        o:["Time Complexity","Space Complexity","Correctness","Feasibility"], a:2,
-        e:"<b>Correctness</b> guarantees that the implementation truly performs everything the interface promises." },
-
+      /* ---------- Algorithm Analysis & Big-O ---------- */
       { q:"In algorithm analysis, what is the scenario where an operation takes maximum time?",
         o:["Best Case","Average Case","Worst Case","Random Case"], a:2,
-        e:"The <b>Worst Case</b> is the scenario where the algorithm takes the maximum amount of time for a given input size." },
+        e:"The <b>Worst Case</b> is the scenario where an operation takes the maximum amount of time for a given input size." },
 
-      { q:"In Java, what is a single unit of values called?",
-        o:["Data","Data Item","Field","Record"], a:1,
-        e:"A <b>Data Item</b> is a single unit of values — it may be a single value or a group of values." },
+      { q:"Which two factors does Big O analysis mainly focus on when analyzing an algorithm?",
+        o:["Variable names and function calls",
+           "Space complexity and time complexity",
+           "Programming language and compiler",
+           "Input format and output format"], a:1,
+        e:"Big O analysis focuses on <b>time complexity</b> and <b>space complexity</b>." },
 
-      { q:"Data items that cannot be divided are called:",
-        o:["Group Items","Elementary Items","Entity Set","Attribute"], a:1,
-        e:"<b>Elementary Items</b> are data items that cannot be subdivided further into smaller meaningful units." },
-
-      { q:"Which characteristic of an algorithm ensures it terminates after a finite number of steps?",
-        o:["Unambiguous","Finiteness","Feasibility","Input"], a:1,
-        e:"<b>Finiteness</b> means an algorithm must terminate after a finite number of steps — it cannot run forever." },
+      { q:"Which asymptotic notation expresses the upper bound, or worst case time complexity, of an algorithm?",
+        o:["Omega notation","Theta notation","Sigma notation","Big Oh notation"], a:3,
+        e:"<b>Big Oh (O)</b> notation expresses the upper bound — the worst-case time complexity." },
 
       { q:"What type of analysis assumes that all factors like processor speed are constant?",
         o:["A Posterior Analysis","A Priori Analysis","Empirical Analysis","Runtime Analysis"], a:1,
@@ -690,25 +753,10 @@ const SECTIONS = [
         o:["S(P) = C - SP(I)","S(P) = C x SP(I)","S(P) = C + SP(I)","S(P) = C / SP(I)"], a:2,
         e:"Space complexity is <b>S(P) = C + SP(I)</b>, where C is the fixed part and SP(I) is the variable part depending on the input." },
 
-      { q:"Which notation represents the upper bound of an algorithm's running time?",
-        o:["Omega","Theta","Big Oh (O)","Alpha"], a:2,
-        e:"<b>Big Oh (O)</b> notation describes the upper bound — the worst-case running time of an algorithm." },
-
-      { q:"Which asymptotic notation represents both upper and lower bounds?",
-        o:["Big Oh (O)","Omega","Theta","Beta"], a:2,
-        e:"<b>Theta (Θ)</b> notation bounds a function from both above and below, giving a tight bound." },
-
-      { q:"What is the time complexity notation for linear time?",
-        o:["O(1)","O(log n)","O(n)","O(n^2)"], a:2,
-        e:"<b>O(n)</b> is linear time — the work grows proportionally with the input size n." },
-
+      /* ---------- Algorithm Strategies ---------- */
       { q:"Which algorithm approach makes decisions based on the closest solution that seems optimal?",
         o:["Dynamic Programming","Divide and Conquer","Greedy Algorithm","Backtracking"], a:2,
         e:"A <b>Greedy Algorithm</b> makes the locally optimal choice at each step, hoping it leads to the global optimum." },
-
-      { q:"Which of the following is an example of a greedy algorithm that can be implemented in Java?",
-        o:["Merge Sort","Quick Sort","Dijkstra's Algorithm","Binary Search"], a:2,
-        e:"<b>Dijkstra's Algorithm</b> is a classic greedy algorithm — it always picks the closest unvisited vertex." },
 
       { q:"In divide and conquer, what is the first step?",
         o:["Merge","Conquer","Divide","Sort"], a:2,
@@ -722,294 +770,21 @@ const SECTIONS = [
         o:["0.0","0","false","null"], a:1,
         e:"The default value of an <b>int</b> is <b>0</b>. (0.0 is for double, false for boolean, null for object references.)" },
 
-      { q:"In a Java array, what is each item stored called?",
-        o:["Index","Element","Node","Pointer"], a:1,
-        e:"Each item stored in an array is an <b>element</b>; the numerical position is the index." },
-
-      { q:"Which Java operation prints all array elements one by one using a for loop?",
-        o:["Insertion","Deletion","Traverse","Search"], a:2,
-        e:"<b>Traverse</b> means visiting every element of the array one by one." }
-    ]
-  },
-
-  {
-    name: "Part 2 · DSA Concepts & Applications",
-    questions: [
-      { q:"An IT student is designing a program that must organize student records and process them efficiently. Which statement best describes the role of Data Structures and Algorithms (DSA)?",
-        o:["Data structures replace algorithms in all programs.",
-           "Data structures organize data, while algorithms provide steps for processing or solving problems using that data.",
-           "Algorithms only store data in memory.",
-           "DSA is used only for designing user interfaces."], a:1,
-        e:"DSA works as a pair: <b>data structures organize data</b>, while <b>algorithms provide the step-by-step process</b> for using that data to solve problems." },
-
-      { q:"Which term refers to a finite, well-defined, and ordered sequence of steps used to solve a problem or complete a task?",
-        o:["Data object","Data structure","Data type","Algorithm"], a:3,
-        e:"An <b>algorithm</b> is a finite, well-defined, ordered sequence of steps that solves a problem." },
-
-      { q:"A system works well with 100 records but becomes extremely slow when processing millions of records. Which reason for studying DSA is most directly illustrated?",
-        o:["Efficiency at scale","Program decoration","File naming","Screen resolution"], a:0,
-        e:"This illustrates <b>efficiency at scale</b> — good DSA choices keep programs fast even as data grows." },
-
-      { q:"A navigation application calculates the fastest route between two locations. According to the lesson, which DSA application is most closely related to this task?",
-        o:["Stack-based text formatting","Array printing only","Graph data structures with shortest-path algorithms","File compression"], a:2,
-        e:"Maps and routes are modeled with <b>graphs</b>, and the fastest path is found using <b>shortest-path algorithms</b> such as Dijkstra's." },
-
-      { q:"Which algorithm strategy tries possible solutions in a straightforward way until the correct one is found?",
-        o:["Greedy","Brute Force","Recursive","Divide and Conquer"], a:1,
-        e:"<b>Brute Force</b> tries every possible solution in a straightforward manner until the correct one is found." },
-
-      { q:"A sorting method repeatedly divides a large list into smaller parts, solves the smaller parts, and combines the results. Which strategy is being used?",
-        o:["Backtracking","Greedy","Brute Force","Divide and Conquer"], a:3,
-        e:"<b>Divide and Conquer</b> — divide the problem, solve the sub-problems, then combine the results (like Merge Sort)." },
-
-      { q:"A change-making procedure always selects the largest coin value that does not exceed the remaining amount and never revisits an earlier choice. Which strategy does this describe?",
-        o:["Greedy","Recursive","Backtracking","Brute Force"], a:0,
-        e:"<b>Greedy</b> — it takes the best immediate (locally optimal) choice and never goes back to reconsider." },
-
-      { q:"A Sudoku-solving program places a number, checks whether the choice is valid, and removes it when it leads to a dead end. Which algorithm strategy is illustrated?",
-        o:["Divide and Conquer","Greedy","Backtracking","Brute Force"], a:2,
-        e:"<b>Backtracking</b> — try a choice, and if it leads to a dead end, undo it and try the next option." },
-
-      { q:"A student writes an algorithm that continues repeating forever even though the required result has already been produced. Which required property of a good algorithm is violated?",
-        o:["Effective","Finite","Input","Output"], a:1,
-        e:"<b>Finiteness</b> is violated — an algorithm must terminate after a finite number of steps." },
-
-      { q:"A student has already understood a programming problem and identified the required inputs and outputs. According to the four-step process in the lesson, what should the student do next?",
-        o:["Break the solution into logical steps before writing, testing, and refining it.",
-           "Skip directly to the final output.",
-           "Remove all inputs from the algorithm.",
-           "Start with a flowchart before understanding the problem."], a:0,
-        e:"After understanding the problem and identifying inputs/outputs, the next step is to <b>design the solution by breaking it into logical steps</b>, then write, test, and refine." },
-
-      { q:"The value 25 appears as one individual value inside a collection of student ages. What is this single unit of value called?",
-        o:["Data object","File","Data item","Abstract data type"], a:2,
-        e:"A single unit of value such as 25 is a <b>data item</b>." },
-
-      { q:"A Student record contains an ID number, name, course, and age that together describe one student. What does the complete Student record represent?",
-        o:["Data object or entity","Primitive data type","Data item only","Pointer"], a:0,
-        e:"A collection of related data items forming one logical unit is a <b>data object (entity)</b> — here, one Student record." },
-
-      { q:"Which of the following is classified as a primitive data type in the lesson?",
-        o:["Array","Stack","File","Boolean"], a:3,
-        e:"<b>Boolean</b> is a primitive data type. Arrays, stacks, and files are non-primitive/composite structures." },
-
-      { q:"Which non-primitive data type is described as a fixed-size, ordered collection of elements of the same type accessed by an index?",
-        o:["Pointer","Array","Boolean","Character"], a:1,
-        e:"An <b>array</b> is a fixed-size, ordered collection of elements of the same type, accessed by index." },
-
-      { q:"A programmer needs a structure defined by behavior such as add, remove, and peek, without focusing on how it is stored in memory. Which concept best matches this requirement?",
-        o:["Primitive type","Data item","Abstract Data Type (ADT)","File"], a:2,
-        e:"An <b>Abstract Data Type (ADT)</b> defines behavior (operations) while hiding the underlying implementation." },
-
-      { q:"A programmer chooses an appropriately sized data type so a large application does not waste unnecessary storage. Which reason for choosing the right data type is illustrated?",
-        o:["Memory efficiency","Traversal","Merging","Recursion"], a:0,
-        e:"Choosing the right data type conserves storage — that is <b>memory efficiency</b>." },
-
-      { q:"A program visits every record in a student list one at a time to display all records. Which data operation is being performed?",
-        o:["Sorting","Deletion","Insertion","Traversing"], a:3,
-        e:"<b>Traversing</b> means visiting each element one at a time, usually to process or display it." },
-
-      { q:"A help-desk system checks whether a ticket number exists and returns its location when found. Which data operation is being performed?",
-        o:["Merging","Searching","Sorting","Traversing"], a:1,
-        e:"<b>Searching</b> locates a specific value and reports whether (and where) it exists." },
-
-      { q:"A cancelled order must be removed from a pending-orders structure. The system first locates the order and then keeps the remaining elements correctly organized. Which operation is central to this task?",
-        o:["Traversing","Updating","Deletion","Sorting"], a:2,
-        e:"<b>Deletion</b> removes an element and keeps the remaining structure intact." },
-
-      { q:"Two already organized class lists must be combined into one master roster while preserving the structure's integrity. Which operation is most appropriate?",
-        o:["Merging","Searching","Traversing","Deletion"], a:0,
-        e:"<b>Merging</b> combines two organized collections into one while preserving order and integrity." }
-    ]
-  },
-
-  {
-    name: "Part 3 · Core Concepts Check",
-    questions: [
-      { q:"Which statement best describes what an algorithm is?",
-        o:["A single command executed without any order",
-           "A storage method for organizing data values",
-           "A fixed list of predefined output values",
-           "A step-by-step procedure defining ordered instructions"], a:3,
-        e:"An <b>algorithm</b> is a step-by-step procedure of ordered instructions that solves a problem." },
-
-      { q:"A student designs an algorithm to add two numbers and display the result, following the START, declare, define, add, store, print, STOP sequence. Which step should come immediately after declaring the variables a, b, and c?",
-        o:["Print the value of c","Define the values of a and b","Stop the algorithm process","Store output of step four"], a:1,
-        e:"After declaring the variables, you <b>define/assign the values of a and b</b> before performing the addition." },
-
-      { q:"A programmer wants to add an element at a specific position of an array and shift the following elements. Which array operation is being performed?",
-        o:["Traverse","Search","Update","Insertion"], a:3,
-        e:"<b>Insertion</b> adds an element at a given position, shifting existing elements to make room." },
-
-      { q:"Which two factors does Big O analysis mainly focus on when analyzing an algorithm?",
-        o:["Variable names and function calls","Space complexity and time complexity","Programming language and compiler","Input format and output format"], a:1,
-        e:"Big O analysis focuses on <b>time complexity</b> and <b>space complexity</b>." },
-
-      { q:"A loop visits every element of an array exactly once to print its value. What is the time complexity of this operation?",
-        o:["O(1)","O(log N)","O(N)","O(N²)"], a:2,
-        e:"Visiting every element once is <b>O(N)</b> — linear time." },
-
-      { q:"A statement accesses only the third element of an array directly using its index. What is the time complexity of this operation?",
-        o:["O(1)","O(N)","O(log N)","O(N²)"], a:0,
-        e:"Direct index access in an array is <b>O(1)</b> — constant time, because it doesn't depend on array size." },
-
-      { q:"Which asymptotic notation expresses the upper bound, or worst case time complexity, of an algorithm?",
-        o:["Omega notation","Theta notation","Sigma notation","Big Oh notation"], a:3,
-        e:"<b>Big Oh (O)</b> notation expresses the upper bound / worst-case time complexity." },
-
-      { q:"Which technique uses loop constructs such as for, while, or do-while to repeat a task?",
-        o:["Iteration","Recursion","Memorization","Backtracking"], a:0,
-        e:"<b>Iteration</b> repeats a task using loops (for, while, do-while)." },
-
-      { q:"In which type of linked list can items be navigated both forward and backward?",
-        o:["Simple linked list","Circular linked list","Singly linked list","Doubly linked list"], a:3,
-        e:"A <b>doubly linked list</b> has both next and previous pointers, so you can move forward and backward." },
-
-      { q:"What must a recursive function have in order to terminate its execution?",
-        o:["A loop counter","A return type","A parameter list","A base case"], a:3,
-        e:"A recursive function must have a <b>base case</b> — the condition that stops further recursive calls." },
-
       { q:"Which data structure is described as the second most-used data structure after array?",
         o:["Stack","Queue","Linked list","Tree"], a:2,
         e:"The <b>linked list</b> is described as the second most-used data structure after the array." },
 
-      { q:"In Java, what is the default value assigned to an int element when an array is initialized with size?",
-        o:["false","null","0","1"], a:2,
-        e:"Java initializes int array elements to <b>0</b> by default." },
-
-      { q:"Which statement best explains why a linked list is more suitable than an array when a program needs frequent insertions and deletions in the middle of a list?",
-        o:["It updates neighboring pointers instead of shifting other elements.",
-           "It stores every node together in one memory block.",
-           "It gives constant time access to any list position.",
-           "It uses less memory since nodes skip storing data."], a:0,
-        e:"A linked list only <b>updates neighboring pointers</b> — no shifting of elements is needed, unlike an array." },
-
-      { q:"In a circular linked list, what does the last item's next link point to?",
-        o:["The first element","A null value","The previous element","Itself directly"], a:0,
-        e:"In a circular linked list, the last node's next pointer goes back to the <b>first element</b>." },
-
-      { q:"What must every algorithm have according to its characteristics?",
-        o:["Zero or more well defined inputs","Exactly one output value only","Unlimited number of steps allowed","Dependence on one programming language"], a:0,
-        e:"An algorithm must have <b>zero or more well-defined inputs</b> — inputs are optional but must be clearly defined." },
-
-      { q:"How is an array defined?",
-        o:["A method that sorts items by value",
-           "A structure that links items using pointers",
-           "A process that searches items by each value index",
-           "A container that holds items of the same type"], a:3,
-        e:"An array is a <b>container that holds items of the same type</b> in contiguous memory." },
-
-      { q:"In an array, what is the numerical value used to identify the location of an element called?",
-        o:["Element","Index","Traverse","Update"], a:1,
-        e:"The numerical position of an element is its <b>index</b>." },
-
-      { q:"What does a data structure primarily provide?",
-        o:["A programming language for writing software applications",
-           "A method for testing software program errors",
-           "A way of organizing data for efficient use",
-           "A hardware component for storing permanent files"], a:2,
-        e:"A data structure provides a <b>way of organizing data for efficient use</b>." },
-
-      { q:"What is the main purpose of a data type?",
-        o:["To sort data elements of array in ascending order",
-           "To search for a specific data value",
-           "To delete unwanted data elements in the array",
-           "To classify data and define allowed operations"], a:3,
-        e:"A data type <b>classifies data and defines which operations are allowed</b> on it." }
-    ]
-  },
-
-  {
-    name: "Basic Concepts",
-    questions: [
-      { q:"A developer needs a structure that stores unique usernames and automatically prevents duplicate entries. Which ADT best matches the requirement?",
-        o:["Queue","List","Set","Stack"], a:2,
-        e:"A <b>Set</b> stores unique elements only — duplicates are automatically rejected." },
-
-      { q:"A program retrieves employee information by using an employee ID as a key. Which ADT is most appropriate?",
-        o:["Map","Stack","Queue","Set"], a:0,
-        e:"A <b>Map</b> stores key–value pairs, perfect for looking up data by a key such as employee ID." },
-
-      { q:"A programmer knows the operations available for a stack but does not need to know whether the stack is implemented using an array or linked structure. Which concept allows this?",
-        o:["Algorithm complexity","Data traversal","Iteration","Abstraction"], a:3,
-        e:"<b>Abstraction</b> hides implementation details and exposes only the essential operations." },
-
-      { q:"An algorithm always produces the expected result for all valid inputs. Which characteristic does this demonstrate?",
-        o:["Finiteness","Correctness","Space efficiency","Scalability"], a:1,
-        e:"<b>Correctness</b> means the algorithm produces the expected output for every valid input." },
-
-      { q:"A developer is choosing between two structures. Structure X provides faster searching, while Structure Y makes frequent insertion and deletion easier. What should primarily determine the choice?",
-        o:["The structure with the shorter name",
-           "The structure introduced first in the course",
-           "The operations most frequently required by the program",
-           "The structure containing more methods"], a:2,
-        e:"The right choice depends on the <b>operations the program needs most often</b>." },
-
-      { q:"A program performs the same number of operations whether it processes 10 records or 10,000 records. Which time complexity best describes this behavior?",
-        o:["O(1)","O(n)","O(log n)","O(n²)"], a:0,
-        e:"Constant time <b>O(1)</b> — the work does not depend on the input size." },
-
-      { q:"An algorithm processes every element of a collection exactly once. If the collection size doubles, the amount of work approximately doubles. Which complexity best describes it?",
-        o:["O(1)","O(log n)","O(n²)","O(n)"], a:3,
-        e:"Work proportional to input size is <b>O(n)</b> — linear time." },
-
-      { q:"A sorting procedure uses two nested loops, and each loop may process approximately n elements. Which complexity is most likely?",
-        o:["O(log n)","O(n²)","O(1)","O(n)"], a:1,
-        e:"Two nested loops each running n times gives n × n = <b>O(n²)</b> — quadratic time." },
-
-      { q:"Two algorithms solve the same problem. Algorithm X uses less memory but takes longer, while Algorithm Y runs faster but requires additional memory. This situation demonstrates:",
-        o:["a time-space trade-off","data encapsulation","an invalid algorithm","a primitive data type"], a:0,
-        e:"This is the classic <b>time–space trade-off</b>: you can often trade memory for speed, or speed for memory." },
-
-      { q:"A programmer tests how an algorithm behaves when given an empty collection, one element, and an extremely large collection. Which practical design concern is being addressed?",
-        o:["Programming-language syntax","Algorithm classification","Edge cases and robustness","Data duplication"], a:2,
-        e:"Testing empty, single-element, and very large inputs is testing <b>edge cases and robustness</b>." }
-    ]
-  },
-
-  {
-    name: "Recursion",
-    questions: [
-      { q:"Consider the recursive definition factorial(n) = n × factorial(n − 1), with factorial(1) = 1. What is the value of factorial(4)?",
-        o:["16","24","12","20"], a:1,
-        e:"4! = 4 × 3 × 2 × 1 = <b>24</b>." },
-
-      { q:"A program evaluates factorial(5) using factorial(1) as its base case. Counting the original call, how many function calls are made?",
-        o:["3","4","5","6"], a:2,
-        e:"The calls are factorial(5), (4), (3), (2), (1) = <b>5 calls</b>." },
-
+      /* ---------- Recursion ---------- */
       { q:"A student writes a recursive function but removes the condition that stops further recursive calls. What is the most likely result?",
         o:["The function executes only once",
            "The result automatically becomes zero",
            "The function changes to iteration",
            "Recursive calls continue until available stack space is exhausted"], a:3,
-        e:"Without a base case you get infinite recursion — <b>the call stack overflows</b> (StackOverflowError in Java)." },
+        e:"Without a base case you get infinite recursion — the calls continue until the <b>call stack space is exhausted</b> (StackOverflowError in Java)." },
 
-      { q:"What does count(4) return?<br><code>def count(n):<br>&nbsp;&nbsp;if n == 1: return 1<br>&nbsp;&nbsp;else: return 1 + count(n − 1)</code>",
-        o:["4","3","5","1"], a:0,
-        e:"count(4) = 1 + count(3) = 1 + 1 + count(2) = 1 + 1 + 1 + count(1) = <b>4</b>." },
-
-      { q:"A call to factorial(3) is made, with factorial(1) serving as the base case. Which sequence correctly shows the calls before the returns begin?",
-        o:["factorial(1) → factorial(2) → factorial(3)",
-           "factorial(3) → factorial(2) → factorial(1)",
-           "factorial(3) → factorial(1) → factorial(2)",
-           "factorial(2) → factorial(3) → factorial(1)"], a:1,
-        e:"Calls go <b>downward</b> first: factorial(3) → factorial(2) → factorial(1). Returns then come back in reverse." },
-
-      { q:"What is returned by mult_recur(3, 4)?<br><code>def mult_recur(a, b):<br>&nbsp;&nbsp;if b == 1: return a<br>&nbsp;&nbsp;else: return a + mult_recur(a, b − 1)</code>",
-        o:["7","9","12","15"], a:2,
-        e:"It adds <b>a</b> a total of b times: 3 + 3 + 3 + 3 = <b>12</b>." },
-
-      { q:"In the call mult_recur(5, 4), which value is repeatedly changed so that the recursion moves toward its base case?",
-        o:["The value of a is doubled","Both a and b increase","The value of a decreases by 1","The value of b decreases by 1"], a:3,
-        e:"<b>b decreases by 1</b> on each call until it reaches the base case b == 1." },
-
-      { q:"What is the primary problem with the recursive case?<br><code>def solve(n):<br>&nbsp;&nbsp;if n == 0: return 0<br>&nbsp;&nbsp;else: return solve(n)</code>",
-        o:["It calls itself with the same value, so it does not move toward the base case",
-           "It returns too many values",
-           "It uses a base case",
-           "It converts the recursion into iteration"], a:0,
-        e:"solve(n) calls solve(n) again with the <b>same value</b> — it never approaches the base case, causing infinite recursion." },
+      { q:"A program evaluates factorial(5) using factorial(1) as its base case. Counting the original call, how many function calls are made?",
+        o:["3","4","5","6"], a:2,
+        e:"The calls are factorial(5), (4), (3), (2), (1) = <b>5 calls</b>." },
 
       { q:"Suppose factorial(4) has reached the call factorial(1) but has not yet started returning results. Which set of calls has been placed on the call stack?",
         o:["Only factorial(1)",
@@ -1023,53 +798,70 @@ const SECTIONS = [
            "The previous recursive calls resume in reverse order and build the final result",
            "All previous calls are discarded without returning values",
            "The base case executes repeatedly"], a:1,
-        e:"The stack unwinds — <b>each previous call resumes in reverse order</b>, multiplying its value into the running result." }
-    ]
-  },
+        e:"The stack unwinds — <b>each previous call resumes in reverse order</b> and builds the final result." },
 
-  {
-    name: "Linked Lists",
-    questions: [
-      { q:"A program needs to access node C. Which traversal correctly represents how it is reached from head?<br><code>head → A → B → C → None</code>",
-        o:["head → C","head → A → B → C","head → B → C → A","C → B → A → head"], a:1,
-        e:"A singly linked list must be walked sequentially: <b>head → A → B → C</b>." },
+      { q:"In the call mult_recur(5, 4), which value is repeatedly changed so that the recursion moves toward its base case?<br><code>def mult_recur(a, b):<br>&nbsp;&nbsp;if b == 1:<br>&nbsp;&nbsp;&nbsp;&nbsp;return a<br>&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;return a + mult_recur(a, b - 1)</code>",
+        o:["The value of a is doubled",
+           "Both a and b increase",
+           "The value of a decreases by 1",
+           "The value of b decreases by 1"], a:3,
+        e:"<b>b decreases by 1</b> on each call until it reaches the base case b == 1." },
 
-      { q:"A new node X is inserted immediately after node B. What should the list become?<br><code>head → A → B → C → None</code>",
-        o:["head → X → A → B → C → None",
-           "head → A → X → B → C → None",
-           "head → A → B → X → C → None",
-           "head → A → B → C → X → None"], a:2,
-        e:"X goes right after B, so the order becomes <b>A → B → X → C</b>." },
+      { q:"What is the primary problem with the recursive case?<br><code>def solve(n):<br>&nbsp;&nbsp;if n == 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;return 0<br>&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;return solve(n)</code>",
+        o:["It calls itself with the same value, so it does not move toward the base case",
+           "It returns too many values",
+           "It uses a base case",
+           "It converts the recursion into iteration"], a:0,
+        e:"solve(n) calls solve(n) with the <b>same value</b> — it never approaches the base case, causing infinite recursion." },
 
-      { q:"Node B is removed from the original list. Which reference must be changed to preserve the list?<br><code>head → A → B → C → None</code>",
-        o:["C must reference A","head must reference C","B must reference A","A must reference C"], a:3,
-        e:"To skip B, <b>A must reference C</b> (A.next = C)." },
+      { q:"What is returned by mystery(3)?<br><code>def mystery(n):<br>&nbsp;&nbsp;if n == 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;return 2<br>&nbsp;&nbsp;return mystery(n - 1) + 3</code>",
+        o:["8","5","14","11"], a:3,
+        e:"mystery(0) = 2, then +3 three times: 2 + 3 + 3 + 3 = <b>11</b>." },
 
-      { q:"What does None indicate?<br><code>head → 10 → 20 → 30 → None</code>",
-        o:["Node 30 is the final node and has no next node",
-           "Node 30 has been deleted",
-           "The list contains no data",
-           "Node 10 has no successor"], a:0,
-        e:"None (null) marks the <b>end of the list</b> — node 30 has no next node." },
+      { q:"How many total calls to process occur when process(4) is executed, including the original call and the base-case call?<br><code>def process(n):<br>&nbsp;&nbsp;if n == 0:<br>&nbsp;&nbsp;&nbsp;&nbsp;return<br>&nbsp;&nbsp;process(n - 1)</code>",
+        o:["4","5","3","6"], a:1,
+        e:"process(4), (3), (2), (1), (0) = <b>5 calls</b>." },
 
-      { q:"If head is changed so that it refers directly to B, what happens when traversal begins from the new head?<br><code>head → A → B → C → None</code>",
-        o:["Traversal still begins at A",
-           "Node C becomes the first node",
-           "Node A is no longer reached through traversal from head",
-           "All nodes are automatically deleted"], a:2,
-        e:"Traversal now starts at B, so <b>node A is skipped and unreachable</b> from head (though it still exists in memory)." },
+      { q:"What is returned by sequence(4)?<br><code>def sequence(n):<br>&nbsp;&nbsp;if n &lt;= 1:<br>&nbsp;&nbsp;&nbsp;&nbsp;return n<br>&nbsp;&nbsp;return sequence(n - 1) + sequence(n - 2)</code>",
+        o:["3","4","5","2"], a:0,
+        e:"seq(0)=0, seq(1)=1, seq(2)=1, seq(3)=2, seq(4)=<b>3</b> (Fibonacci-style)." },
 
-      { q:"A navigation system needs to move from the current node to either the next node or the previous node. Which linked-list type best supports this requirement?",
-        o:["Singly linked list","Doubly linked list","Circular singly linked list only","Array-based list"], a:1,
-        e:"A <b>doubly linked list</b> has both next and prev pointers, supporting forward and backward movement." },
+      /* ---------- Array Operations ---------- */
+      { q:"Which data structure operation prints all array elements one by one using a for loop?",
+        o:["Insertion","Deletion","Traverse","Search"], a:2,
+        e:"<b>Traverse</b> means visiting every element of the array one by one, usually to process or display it." },
 
-      { q:"The programmer wants to convert the nodes into a circular linked list. What should node C reference?<br><code>A → B → C</code>",
-        o:["None","Node B","Itself","Node A"], a:3,
-        e:"In a circular list the last node points back to the first: <b>C → A</b>." },
+      { q:"A program visits every record in a student list one at a time to display all records. Which data operation is being performed?",
+        o:["Sorting","Deletion","Insertion","Traversing"], a:3,
+        e:"<b>Traversing</b> means visiting each element one at a time, usually to process or display it." },
+
+      { q:"A programmer wants to append an element at a specific position of an array and shift the following elements. Which array operation is being performed?",
+        o:["Traverse","Search","Update","Insertion"], a:3,
+        e:"<b>Insertion</b> adds an element at a given position and shifts the following elements to make room." },
+
+      { q:"A help-desk system checks whether a ticket number exists and returns its location when found. Which data operation is being performed?",
+        o:["Merging","Searching","Sorting","Traversing"], a:1,
+        e:"<b>Searching</b> locates a specific value and reports whether (and where) it exists." },
+
+      { q:"A cancelled order must be removed from a pending-orders structure. The system first locates the order and then keeps the remaining elements correctly organized. Which operation is central to this task?",
+        o:["Traversing","Updating","Deletion","Sorting"], a:2,
+        e:"<b>Deletion</b> removes an element and keeps the remaining structure correctly organized." },
+
+      { q:"Two already organized class lists must be combined into one master roster while preserving the structure's integrity. Which operation is most appropriate?",
+        o:["Merging","Searching","Traversing","Deletion"], a:0,
+        e:"<b>Merging</b> combines two organized collections into one while preserving the structure's integrity." },
+
+      /* ---------- Linked Lists ---------- */
+      { q:"Which statement best explains why a linked list is more suitable than an array when a program needs frequent insertions and deletions in the middle of a list?",
+        o:["It updates neighboring pointers instead of shifting other elements.",
+           "It stores every node together in one memory block.",
+           "It gives constant time access to any list position.",
+           "It uses less memory since nodes skip storing data."], a:0,
+        e:"A linked list only <b>updates neighboring pointers</b> — no shifting of elements is needed, unlike an array." },
 
       { q:"A program stores a collection whose size changes frequently. New elements are regularly inserted and existing elements are removed, while direct index-based access is not important. Which structure is generally more suitable?",
         o:["Linked list","Fixed array","Primitive variable","Boolean value"], a:0,
-        e:"A <b>linked list</b> handles frequent insertions and deletions efficiently without resizing or shifting." },
+        e:"A <b>linked list</b> grows and shrinks easily without resizing or shifting elements." },
 
       { q:"A linked list contains 100 nodes. A programmer wants to access node 80 directly in the same way an array accesses an element by index. Why is this not normally possible?",
         o:["Linked lists cannot store more than one value",
@@ -1078,74 +870,60 @@ const SECTIONS = [
            "Every linked-list node has the same address"], a:2,
         e:"Linked lists have no index formula — you must <b>traverse node by node</b> from the head, giving O(n) access." },
 
-      { q:"Node 20 must be deleted. Which change correctly preserves the remaining list?<br><code>head → 10 → 20 → 30 → None</code>",
-        o:["Make 30 reference 20","Make node 10 reference node 30","Make head reference 30","Make node 20 reference node 10"], a:1,
-        e:"Skip over node 20: <b>node 10's next pointer should point to node 30</b>." }
-    ]
-  },
+      { q:"A program needs to access node C. Which traversal correctly represents how it is reached from head?<br><code>head -&gt; A -&gt; B -&gt; C -&gt; None</code>",
+        o:["head → C","head → A → B → C","head → B → C → A","C → B → A → head"], a:1,
+        e:"A singly linked list must be walked sequentially: <b>head → A → B → C</b>." },
 
-  {
-    name: "Simulation · Recursion",
-    questions: [
-      { q:"What is returned by total(4)?<br><code>def total(n):<br>&nbsp;&nbsp;if n == 0: return 0<br>&nbsp;&nbsp;return n + total(n − 1)</code>",
-        o:["8","10","12","16"], a:1,
-        e:"4 + 3 + 2 + 1 + 0 = <b>10</b>." },
-
-      { q:"What is returned by mystery(3)?<br><code>def mystery(n):<br>&nbsp;&nbsp;if n == 0: return 2<br>&nbsp;&nbsp;return mystery(n − 1) + 3</code>",
-        o:["8","5","14","11"], a:3,
-        e:"mystery(0) = 2, then +3 three times: 2 + 3 + 3 + 3 = <b>11</b>." },
-
-      { q:"What is printed by countdown(3)?<br><code>def countdown(n):<br>&nbsp;&nbsp;if n == 0: return<br>&nbsp;&nbsp;print(n)<br>&nbsp;&nbsp;countdown(n − 1)</code>",
-        o:["3 2 1","1 2 3","3 3 3","2 1 0"], a:0,
-        e:"The print happens <b>before</b> the recursive call, so it prints <b>3 2 1</b>." },
-
-      { q:"What is returned by power2(4)?<br><code>def power2(n):<br>&nbsp;&nbsp;if n == 0: return 1<br>&nbsp;&nbsp;return 2 * power2(n − 1)</code>",
-        o:["8","12","16","32"], a:2,
-        e:"2⁴ = <b>16</b> (2 × 2 × 2 × 2 × 1)." },
-
-      { q:"How many total calls to process occur when process(4) is executed, including the original call and the base-case call?<br><code>def process(n):<br>&nbsp;&nbsp;if n == 0: return<br>&nbsp;&nbsp;process(n − 1)</code>",
-        o:["4","5","3","6"], a:1,
-        e:"process(4), (3), (2), (1), (0) = <b>5 calls</b>." },
-
-      { q:"What is returned by sequence(4)?<br><code>def sequence(n):<br>&nbsp;&nbsp;if n &lt;= 1: return n<br>&nbsp;&nbsp;return sequence(n − 1) + sequence(n − 2)</code>",
-        o:["3","4","5","2"], a:0,
-        e:"seq(0)=0, seq(1)=1, seq(2)=1, seq(3)=2, seq(4)=<b>3</b> (Fibonacci-style)." },
-
-      { q:"What happens when wrong(3) is executed?<br><code>def wrong(n):<br>&nbsp;&nbsp;if n == 0: return 0<br>&nbsp;&nbsp;return wrong(n + 1)</code>",
-        o:["It immediately returns 3","It eventually reaches 0","It returns 4","The calls move away from the base case and continue recursively"], a:3,
-        e:"n increases (n + 1) instead of decreasing, so it <b>moves away from the base case</b> — infinite recursion." },
-
-      { q:"Which value is returned by add_down(4)?<br><code>def add_down(n):<br>&nbsp;&nbsp;if n == 1: return 1<br>&nbsp;&nbsp;return n + add_down(n − 1)</code>",
-        o:["24","7","10","16"], a:2,
-        e:"4 + 3 + 2 + 1 = <b>10</b>." },
-
-      { q:"What is printed by show(3)?<br><code>def show(n):<br>&nbsp;&nbsp;if n == 0: return<br>&nbsp;&nbsp;show(n − 1)<br>&nbsp;&nbsp;print(n)</code>",
-        o:["3 2 1","1 2 3","0 1 2","3 3 3"], a:1,
-        e:"The print happens <b>after</b> the recursive call, so the smallest value prints first: <b>1 2 3</b>." },
-
-      { q:"What is returned by double(4)?<br><code>def double(n):<br>&nbsp;&nbsp;if n &lt;= 1: return 1<br>&nbsp;&nbsp;return 2 * double(n − 1)</code>",
-        o:["16","4","6","8"], a:3,
-        e:"double(1)=1, double(2)=2, double(3)=4, double(4)=<b>8</b>." }
-    ]
-  },
-
-  {
-    name: "Simulation · Linked Lists",
-    questions: [
-      { q:"The following statements execute. Which value does current.data contain?<br><code>current = head<br>current = current.next<br>current = current.next</code><br><code>head → 10 → 20 → 30 → None</code>",
+      { q:"The following statements execute. Which value does current.data contain?<br><code>current = head<br>current = current.next<br>current = current.next</code><br><code>head -&gt; 10 -&gt; 20 -&gt; 30 -&gt; None</code>",
         o:["30","10","20","None"], a:0,
         e:"Two next-hops from head: 10 → 20 → <b>30</b>." },
 
-      { q:"A new node containing 15 must be inserted immediately after 10. Which resulting list is correct?<br><code>head → 10 → 20 → 30 → None</code>",
-        o:["10 → 20 → 15 → 30","15 → 10 → 20 → 30","10 → 15 → 20 → 30","10 → 20 → 30 → 15"], a:2,
-        e:"15 goes directly after 10: <b>10 → 15 → 20 → 30</b>." },
+      { q:"A new node X is inserted immediately after node B. What should the list become?<br><code>head -&gt; A -&gt; B -&gt; C -&gt; None</code>",
+        o:["head → X → A → B → C → None",
+           "head → A → X → B → C → None",
+           "head → A → B → X → C → None",
+           "head → A → B → C → X → None"], a:2,
+        e:"X goes directly after B, so the list becomes <b>head → A → B → X → C → None</b>." },
 
-      { q:"The statement head = head.next executes. What is the resulting list when traversal begins from the new head?<br><code>head → 5 → 10 → 15 → None</code>",
+      { q:"A new node containing 15 must be inserted immediately after 10. Which resulting list is correct?<br><code>head -&gt; 10 -&gt; 20 -&gt; 30 -&gt; None</code>",
+        o:["10 → 20 → 15 → 30","15 → 10 → 20 → 30","10 → 15 → 20 → 30","10 → 20 → 30 → 15"], a:2,
+        e:"15 is inserted right after 10: <b>10 → 15 → 20 → 30</b>." },
+
+      { q:"Node B is removed from the original list. Which reference must be changed to preserve the list?<br><code>head -&gt; A -&gt; B -&gt; C -&gt; None</code>",
+        o:["C must reference A","head must reference C","B must reference A","A must reference C"], a:3,
+        e:"To skip B, <b>A must reference C</b> (A.next = C)." },
+
+      { q:"Node 20 must be deleted. Which change correctly preserves the remaining list?<br><code>head -&gt; 10 -&gt; 20 -&gt; 30 -&gt; None</code>",
+        o:["Make 30 reference 20","Make node 10 reference node 30","Make head reference 30","Make node 20 reference node 10"], a:1,
+        e:"Skip over node 20 — <b>node 10's next pointer should point to node 30</b>." },
+
+      { q:"What does None indicate?<br><code>head -&gt; 10 -&gt; 20 -&gt; 30 -&gt; None</code>",
+        o:["Node 30 is the final node and has no next node",
+           "Node 30 has been deleted",
+           "The list contains no data",
+           "Node 10 has no successor"], a:0,
+        e:"None (null) marks the <b>end of the list</b> — node 30 has no next node." },
+
+      { q:"If head is changed so that it refers directly to B, what happens when traversal begins from the new head?<br><code>head -&gt; A -&gt; B -&gt; C -&gt; None</code>",
+        o:["Traversal still begins at A",
+           "Node C becomes the first node",
+           "Node A is no longer reached through traversal from head",
+           "All nodes are automatically deleted"], a:2,
+        e:"Traversal now starts at B, so <b>node A is no longer reached</b> from head." },
+
+      { q:"The statement head = head.next executes. What is the resulting list when traversal begins from the new head?<br><code>head -&gt; 5 -&gt; 10 -&gt; 15 -&gt; None</code>",
         o:["5 → 15 → None","10 → 15 → None","5 → 10 → None","15 → None"], a:1,
-        e:"head moves past 5, so traversal starts at 10: <b>10 → 15 → None</b>." },
+        e:"head moves past 5, so traversal begins at 10: <b>10 → 15 → None</b>." },
+
+      { q:"A browser application must efficiently move from the current page to either the previous page or the next page. Which linked-list type is most appropriate?",
+        o:["Circular singly linked list","Singly linked list","Doubly linked list","Primitive list"], a:2,
+        e:"A <b>doubly linked list</b> has both next and prev pointers, supporting forward and backward navigation." },
 
       { q:"Suppose current refers to node B, and B is deleted. Which pair of pointer changes correctly reconnects the remaining nodes?<br><code>None &lt;- A &lt;-&gt; B &lt;-&gt; C -&gt; None</code>",
-        o:["A.prev = C and C.next = A","B.next = A and B.prev = C","A.next = B and C.prev = B","A.next = C and C.prev = A"], a:3,
+        o:["A.prev = C and C.next = A",
+           "B.next = A and B.prev = C",
+           "A.next = B and C.prev = B",
+           "A.next = C and C.prev = A"], a:3,
         e:"In a doubly linked list, bypass B by setting <b>A.next = C</b> and <b>C.prev = A</b>." },
 
       { q:"If traversal begins at tail and repeatedly follows prev, which sequence is visited?<br><code>10 &lt;-&gt; 20 &lt;-&gt; 30 &lt;-&gt; 40</code>",
@@ -1159,20 +937,16 @@ const SECTIONS = [
            "new.prev = head, then head.next = new"], a:0,
         e:"Link the new node to the old head, fix the old head's prev pointer, then <b>update head to the new node</b>." },
 
-      { q:"Starting at A, the pointer moves to next five times. Which node is reached?<br><code>Circular list: A → B → C → A</code>",
-        o:["A","B","The pointer becomes None","C"], a:3,
-        e:"Moves: B(1), C(2), A(3), B(4), <b>C(5)</b>." },
+      { q:"The programmer wants to convert the nodes into a circular linked list. What should node C reference?<br><code>A -&gt; B -&gt; C</code>",
+        o:["None","Node B","Itself","Node A"], a:3,
+        e:"In a circular linked list the last node points back to the first: <b>C → A</b>." },
 
-      { q:"The node containing 10 is deleted. Which condition must be true after the deletion?<br><code>Circular list: head → 10 → 20 → 30 → back to head</code>",
+      { q:"The node containing 10 is deleted. Which condition must be true after the deletion?<br><code>Circular list: head -&gt; 10 -&gt; 20 -&gt; 30 -&gt; back to head</code>",
         o:["30.next must become None",
            "head becomes 20 and 30.next must refer to the new head",
            "20.next must refer directly to itself",
            "head must remain at 10"], a:1,
         e:"The head moves to 20, and the last node (30) must point back to the <b>new head</b> to keep the list circular." },
-
-      { q:"A browser application must efficiently move from the current page to either the previous page or the next page. Which linked-list type is most appropriate?",
-        o:["Circular singly linked list","Singly linked list","Doubly linked list","Primitive list"], a:2,
-        e:"A <b>doubly linked list</b> supports both forward (next) and backward (prev) navigation." },
 
       { q:"A circular linked list contains only one node with the value 50. Which representation correctly describes the structure?",
         o:["head = tail = node50, and node50.next = node50",
@@ -1185,28 +959,61 @@ const SECTIONS = [
 ];
 
 /* =========================================================
-   FLATTEN
+   SHUFFLE UTILITIES
    ========================================================= */
-const FLAT = [];
-SECTIONS.forEach((sec, si) => {
-  sec.questions.forEach((q) => {
-    FLAT.push({
-      sectionIndex: si,
-      sectionName: sec.name,
-      q: q.q,
-      o: q.o,
-      a: q.a,
-      e: q.e
+function shuffleArray(arr){
+  for (let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function shuffleQuestionOptions(q){
+  const tagged = q.o.map((text, i) => ({ text, correct: i === q.a }));
+  shuffleArray(tagged);
+  q.o = tagged.map(t => t.text);
+  q.a = tagged.findIndex(t => t.correct);
+}
+
+function reshuffleQuestions(){
+  SECTIONS.forEach(sec => {
+    shuffleArray(sec.questions);
+    sec.questions.forEach(shuffleQuestionOptions);
+  });
+}
+
+/* =========================================================
+   FLATTEN  (rebuilt after every shuffle)
+   ========================================================= */
+let FLAT = [];
+
+function buildFlat(){
+  FLAT = [];
+  SECTIONS.forEach((sec, si) => {
+    sec.questions.forEach((q) => {
+      FLAT.push({
+        sectionIndex: si,
+        sectionName: sec.name,
+        q: q.q,
+        o: q.o,
+        a: q.a,
+        e: q.e
+      });
     });
   });
-});
+}
+
+/* initial shuffle + build */
+reshuffleQuestions();
+buildFlat();
 
 /* =========================================================
    STATE
    ========================================================= */
 let idx = 0;
 let answered = false;
-const userAnswers = new Array(FLAT.length).fill(null);
+let userAnswers = new Array(FLAT.length).fill(null);
 
 /* =========================================================
    DOM
@@ -1243,13 +1050,16 @@ const LETTERS = ['A','B','C','D','E'];
 document.getElementById('totalQ').textContent = FLAT.length;
 
 document.getElementById('startBtn').addEventListener('click', () => {
+  reshuffleQuestions();
+  buildFlat();
+  userAnswers = new Array(FLAT.length).fill(null);
+
   startScreen.style.display = 'none';
   quizScreen.style.display = 'block';
   sidebar.style.display = 'flex';
 
   idx = 0;
   answered = false;
-  userAnswers.fill(null);
 
   buildMap();
   renderQuestion();
@@ -1539,12 +1349,15 @@ function showResults(){
    RESTART
    ========================================================= */
 document.getElementById('restartBtn').addEventListener('click', () => {
+  reshuffleQuestions();
+  buildFlat();
+  userAnswers = new Array(FLAT.length).fill(null);
+
   resultScreen.style.display = 'none';
   quizScreen.style.display = 'block';
 
   idx = 0;
   answered = false;
-  userAnswers.fill(null);
 
   buildMap();
   renderQuestion();
