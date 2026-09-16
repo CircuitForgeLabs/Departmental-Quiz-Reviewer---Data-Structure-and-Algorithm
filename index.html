@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures &amp; Algorithms — Interactive Quiz</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --deep:#0f3d24;
+    --forest:#166534;
+    --leaf:#22c55e;
+    --light:#86efac;
+    --mint:#ecfdf5;
+    --cream:#f7fee7;
+    --ink:#14351f;
+    --muted:#4b6b57;
+  }
+
+  html,body{height:100%}
+
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    min-height:100vh;
+    color:var(--ink);
+    padding:26px 16px 80px;
+    display:flex;
+    justify-content:center;
+    background:
+      radial-gradient(circle at 8% 0%, #bbf7d0 0%, transparent 45%),
+      radial-gradient(circle at 96% 8%, #d9f99d 0%, transparent 42%),
+      radial-gradient(circle at 50% 105%, #a7f3d0 0%, transparent 52%),
+      linear-gradient(160deg,#f0fdf4 0%,#ecfdf5 50%,#f7fee7 100%);
+    background-attachment:fixed;
+    overflow-x:hidden;
+  }
+
+  /* decorative floating leaves */
+  .leaf-bg{
+    position:fixed;
+    font-size:90px;
+    opacity:.10;
+    pointer-events:none;
+    user-select:none;
+    z-index:0;
+  }
+  .leaf-bg.l1{top:6%;left:2%;transform:rotate(-18deg)}
+  .leaf-bg.l2{top:40%;right:1%;transform:rotate(22deg);font-size:120px}
+  .leaf-bg.l3{bottom:4%;left:6%;transform:rotate(10deg);font-size:100px}
+  .leaf-bg.l4{top:72%;right:8%;transform:rotate(-25deg);font-size:70px}
+
+  .app{width:100%;max-width:1220px;position:relative;z-index:2}
+
+  /* ---------- HERO ---------- */
+  .hero{text-align:center;margin-bottom:22px}
+
+  .badge{
+    display:inline-block;
+    padding:7px 18px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#166534,#22c55e);
+    color:#fff;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    box-shadow:0 8px 20px -8px rgba(22,101,52,.8);
+  }
+
+  .hero h1{
+    margin:16px 0 8px;
+    font-size:clamp(1.7rem,4.6vw,2.6rem);
+    line-height:1.15;
+    color:var(--deep);
+    letter-spacing:-.5px;
+  }
+  .hero h1 span{
+    background:linear-gradient(120deg,#16a34a,#65a30d);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero .sub{
+    color:var(--muted);
+    font-size:.98rem;
+  }
+  .hero .sub strong{color:var(--forest)}
+
+  /* ---------- LAYOUT ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 320px;
+    gap:22px;
+    align-items:start;
+  }
+
+  /* ---------- CARD ---------- */
+  .card{
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid #bbf7d0;
+    border-radius:24px;
+    box-shadow:0 22px 50px -22px rgba(20,83,45,.45), 0 1px 0 #fff inset;
+    padding:28px;
+  }
+
+  /* ---------- START SCREEN ---------- */
+  #startScreen .welcome{
+    text-align:center;
+  }
+  .welcome .big-leaf{font-size:56px;display:block;margin-bottom:8px}
+  .welcome h2{color:var(--deep);font-size:1.35rem;margin-bottom:10px}
+  .welcome p{color:var(--muted);line-height:1.65;font-size:.97rem;max-width:560px;margin:0 auto}
+
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:12px;
+    margin:24px 0 6px;
+  }
+  .stat{
+    background:linear-gradient(160deg,#f0fdf4,#dcfce7);
+    border:1px solid #bbf7d0;
+    border-radius:16px;
+    padding:16px 12px;
+    text-align:center;
+  }
+  .stat .num{font-size:1.5rem;font-weight:800;color:var(--forest);display:block}
+  .stat .lbl{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
+
+  .topic-list{
+    margin:22px 0 4px;
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  }
+  .topic-list span{
+    background:#ecfdf5;border:1px solid #bbf7d0;color:var(--forest);
+    font-size:.78rem;font-weight:600;padding:6px 13px;border-radius:999px;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    border:none;cursor:pointer;
+    font-family:inherit;font-size:1rem;font-weight:700;
+    padding:15px 34px;border-radius:14px;
+    background:linear-gradient(135deg,#15803d,#22c55e);
+    color:#fff;
+    box-shadow:0 14px 28px -12px rgba(22,101,52,.9);
+    transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
+  }
+  .btn:hover{transform:translateY(-3px);filter:brightness(1.06);box-shadow:0 20px 34px -14px rgba(22,101,52,.95)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{
+    background:#fff;color:var(--forest);
+    border:2px solid #bbf7d0;box-shadow:none;
+  }
+  .btn.ghost:hover{background:#f0fdf4;border-color:var(--leaf)}
+
+  .center{text-align:center}
+  .mt24{margin-top:24px}
+
+  /* ---------- SIDEBAR / QUESTION MAP ---------- */
+  .sidebar{
+    position:sticky;
+    top:16px;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border:1px solid #bbf7d0;
+    border-radius:24px;
+    padding:18px 16px;
+    box-shadow:0 22px 50px -26px rgba(20,83,45,.5), 0 1px 0 #fff inset;
+    max-height:calc(100vh - 32px);
+    display:flex;
+    flex-direction:column;
+  }
+
+  .side-head h3{
+    font-size:1rem;
+    color:var(--deep);
+    display:flex;align-items:center;gap:8px;
+  }
+  .side-head p{
+    font-size:.74rem;
+    color:var(--muted);
+    margin-top:3px;
+    font-weight:600;
+  }
+
+  .side-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin:14px 0 12px;
+  }
+  .ss{
+    background:#f0fdf4;
+    border:1px solid #dcfce7;
+    border-radius:13px;
+    padding:9px 6px;
+    text-align:center;
+    transition:background .2s;
+  }
+  .ss-num{display:block;font-size:1.15rem;font-weight:800;color:var(--forest);line-height:1.1}
+  .ss-lbl{font-size:.63rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}
+  .ss.correct{background:#dcfce7;border-color:#86efac}
+  .ss.correct .ss-num{color:#15803d}
+  .ss.wrong{background:#fee2e2;border-color:#fecaca}
+  .ss.wrong .ss-num{color:#dc2626}
+  .ss.remain{background:#f7fee7;border-color:#d9f99d}
+
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:.69rem;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:12px;
+    padding-bottom:12px;
+    border-bottom:1px dashed #d1fae5;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:11px;height:11px;border-radius:4px;display:inline-block;flex:0 0 auto}
+  .dot-un{background:#f6f9f7;border:1.5px solid #dbe5df}
+  .dot-ok{background:#16a34a}
+  .dot-no{background:#dc2626}
+
+  .map-scroll{
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:relative;
+    padding-right:4px;
+    flex:1;
+    min-height:0;
+  }
+  .map-scroll::-webkit-scrollbar{width:7px}
+  .map-scroll::-webkit-scrollbar-track{background:#f0fdf4;border-radius:99px}
+  .map-scroll::-webkit-scrollbar-thumb{background:#86efac;border-radius:99px}
+  .map-scroll::-webkit-scrollbar-thumb:hover{background:#4ade80}
+
+  .map-group{margin-bottom:14px}
+  .map-group:last-child{margin-bottom:2px}
+
+  .map-title{
+    font-size:.68rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+    color:var(--forest);
+    margin-bottom:7px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .map-title::before{
+    content:"";
+    width:4px;height:4px;border-radius:50%;
+    background:var(--leaf);
+    flex:0 0 auto;
+  }
+
+  .map-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(29px,1fr));
+    gap:5px;
+  }
+
+  .chip{
+    position:relative;
+    aspect-ratio:1;
+    min-height:29px;
+    border-radius:9px;
+    border:1.5px solid #dbe5df;
+    background:#f6f9f7;
+    color:#9aa8a0;
+    font-family:inherit;
+    font-size:.7rem;
+    font-weight:800;
+    cursor:pointer;
+    display:grid;
+    place-items:center;
+    transition:transform .14s ease, background .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+  }
+  .chip:hover{
+    transform:translateY(-2px) scale(1.06);
+    border-color:var(--leaf);
+    color:var(--forest);
+    z-index:2;
+    box-shadow:0 8px 14px -8px rgba(22,101,52,.9);
+  }
+  .chip.un{background:#f6f9f7;border-color:#dbe5df;color:#a3b0a8}
+  .chip.ok{
+    background:linear-gradient(160deg,#22c55e,#15803d);
+    border-color:#16a34a;
+    color:#fff;
+    box-shadow:0 6px 12px -8px rgba(22,101,52,.9);
+  }
+  .chip.no{
+    background:linear-gradient(160deg,#f87171,#dc2626);
+    border-color:#dc2626;
+    color:#fff;
+    box-shadow:0 6px 12px -8px rgba(220,38,38,.85);
+  }
+  .chip.current{
+    outline:3px solid #4ade80;
+    outline-offset:1.5px;
+    transform:scale(1.06);
+    z-index:3;
+  }
+  .chip.no.current{outline-color:#fca5a5}
+
+  /* ---------- QUIZ SCREEN ---------- */
+  .quiz-top{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    margin-bottom:14px;flex-wrap:wrap;
+  }
+  .section-tag{
+    font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;background:linear-gradient(135deg,#166534,#4d7c0f);
+    padding:6px 14px;border-radius:999px;
+  }
+  .counter{font-size:.85rem;font-weight:700;color:var(--muted)}
+
+  .progress-track{
+    height:11px;background:#dcfce7;border-radius:999px;overflow:hidden;
+    border:1px solid #bbf7d0;margin-bottom:26px;
+  }
+  .progress-fill{
+    height:100%;width:0%;border-radius:999px;
+    background:linear-gradient(90deg,#4ade80,#16a34a,#65a30d);
+    transition:width .45s cubic-bezier(.4,0,.2,1);
+  }
+
+  .q-text{
+    font-size:1.1rem;line-height:1.6;font-weight:600;color:var(--deep);
+    margin-bottom:20px;
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .q-num{
+    flex:0 0 auto;
+    width:34px;height:34px;border-radius:11px;
+    background:linear-gradient(135deg,#15803d,#22c55e);
+    color:#fff;font-size:.9rem;font-weight:800;
+    display:grid;place-items:center;
+    box-shadow:0 8px 16px -8px rgba(22,101,52,.9);
+  }
+  .q-text code{
+    display:inline-block;
+    background:#f0fdf4;
+    border:1px solid #dcfce7;
+    border-radius:8px;
+    padding:8px 11px;
+    margin-top:6px;
+    font-size:.84rem;
+    line-height:1.7;
+    color:#14532d;
+    font-family:"Consolas","Monaco",monospace;
+  }
+
+  .options{display:flex;flex-direction:column;gap:11px}
+
+  .option{
+    display:flex;align-items:flex-start;gap:13px;
+    width:100%;text-align:left;font-family:inherit;
+    font-size:.98rem;line-height:1.5;color:var(--ink);
+    padding:14px 17px;border-radius:15px;
+    border:2px solid #d1fae5;background:#fff;cursor:pointer;
+    transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;
+  }
+  .option:hover:not(:disabled){
+    border-color:var(--leaf);background:#f0fdf4;
+    transform:translateY(-2px);
+    box-shadow:0 12px 22px -16px rgba(22,101,52,.9);
+  }
+  .option:disabled{cursor:default}
+
+  .letter{
+    flex:0 0 auto;
+    width:28px;height:28px;border-radius:50%;
+    background:#ecfdf5;border:1.5px solid #bbf7d0;color:var(--forest);
+    font-size:.82rem;font-weight:800;
+    display:grid;place-items:center;
+    transition:.15s;
+  }
+  .option.correct{
+    border-color:#16a34a;background:#dcfce7;
+    box-shadow:0 0 0 4px rgba(34,197,94,.15);
+  }
+  .option.correct .letter{background:#16a34a;color:#fff;border-color:#16a34a}
+  .option.wrong{
+    border-color:#dc2626;background:#fee2e2;
+    box-shadow:0 0 0 4px rgba(220,38,38,.12);
+  }
+  .option.wrong .letter{background:#dc2626;color:#fff;border-color:#dc2626}
+  .option.dim{opacity:.55}
+
+  /* ---------- FEEDBACK ---------- */
+  .feedback{
+    margin-top:20px;padding:18px 20px;border-radius:16px;
+    display:none;animation:slideIn .32s ease;
+    border-left:6px solid;
+  }
+  .feedback.show{display:block}
+  .feedback.ok{background:#f0fdf4;border-color:#16a34a}
+  .feedback.no{background:#fef2f2;border-color:#dc2626}
+
+  .feedback .head{
+    display:flex;align-items:center;gap:10px;
+    font-weight:800;font-size:1rem;margin-bottom:8px;
+  }
+  .feedback.ok .head{color:#15803d}
+  .feedback.no .head{color:#b91c1c}
+
+  .feedback .head .emo{font-size:1.35rem;animation:pop .45s ease}
+
+  .feedback p{font-size:.92rem;line-height:1.65;color:#31543f}
+  .feedback.no p{color:#7f1d1d}
+  .feedback .ans{font-weight:800}
+
+  @keyframes slideIn{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes pop{
+    0%{transform:scale(.3) rotate(-18deg)}
+    60%{transform:scale(1.35) rotate(8deg)}
+    100%{transform:scale(1) rotate(0)}
+  }
+
+  .quiz-bottom{
+    display:flex;justify-content:flex-end;align-items:center;gap:12px;
+    margin-top:22px;flex-wrap:wrap;
+  }
+  .score-live{
+    margin-right:auto;font-size:.86rem;font-weight:700;color:var(--muted);
+  }
+  .score-live b{color:var(--forest)}
+
+  /* ---------- RESULT ---------- */
+  .result-head{text-align:center}
+  .result-head .trophy{font-size:64px;display:block;margin-bottom:6px;animation:pop .6s ease}
+  .result-head h2{color:var(--deep);font-size:1.5rem;margin-bottom:6px}
+  .result-head p{color:var(--muted);font-size:.95rem}
+
+  .score-circle{
+    width:170px;height:170px;border-radius:50%;
+    margin:24px auto;
+    display:grid;place-items:center;
+    background:conic-gradient(#22c55e var(--pct), #dcfce7 0);
+    position:relative;
+    box-shadow:0 18px 36px -20px rgba(22,101,52,.9);
+  }
+  .score-circle::after{
+    content:"";position:absolute;inset:13px;border-radius:50%;background:#fff;
+  }
+  .score-inner{position:relative;z-index:2;text-align:center}
+  .score-inner .p{font-size:2.2rem;font-weight:800;color:var(--forest);line-height:1}
+  .score-inner .f{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+  .breakdown{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:12px;margin-top:22px;
+  }
+  .bd-item{
+    background:#f7fee7;border:1px solid #d9f99d;border-radius:14px;
+    padding:13px 15px;
+  }
+  .bd-item .name{font-size:.8rem;font-weight:700;color:var(--forest);margin-bottom:6px;line-height:1.35}
+  .bd-item .val{font-size:.85rem;color:var(--muted);font-weight:600}
+  .bd-bar{height:7px;background:#e5f5d8;border-radius:99px;margin-top:8px;overflow:hidden}
+  .bd-bar i{display:block;height:100%;background:linear-gradient(90deg,#4ade80,#16a34a);border-radius:99px}
+
+  /* ---------- FLOATING EMOJI ---------- */
+  .float-emoji{
+    position:fixed;
+    z-index:9999;
+    pointer-events:none;
+    animation:floatUp 1.5s cubic-bezier(.2,.7,.3,1) forwards;
+    will-change:transform,opacity;
+  }
+  @keyframes floatUp{
+    0%{transform:translate(-50%,-50%) scale(.25);opacity:0}
+    18%{transform:translate(-50%,-50%) scale(1.2);opacity:1}
+    100%{transform:translate(calc(-50% + var(--dx)), calc(-50% - 210px)) scale(.85);opacity:0}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:980px){
+    .layout{grid-template-columns:1fr}
+    .sidebar{
+      position:static;
+      max-height:none;
+      order:2;
+      margin-top:4px;
+    }
+    .map-scroll{max-height:280px}
+    .map-grid{grid-template-columns:repeat(auto-fill,minmax(32px,1fr))}
+  }
+
+  @media(max-width:560px){
+    .card{padding:20px 16px;border-radius:20px}
+    .sidebar{padding:16px 14px;border-radius:20px}
+    .q-text{font-size:1rem}
+    .option{font-size:.92rem;padding:12px 14px}
+    .btn{padding:14px 24px;width:100%}
+    .quiz-bottom .btn{width:auto;flex:1}
+    .leaf-bg{display:none}
+    .side-stats{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="leaf-bg l1">🌿</div>
+<div class="leaf-bg l2">🍃</div>
+<div class="leaf-bg l3">🌱</div>
+<div class="leaf-bg l4">🍀</div>
+
+<div class="app">
+
+  <header class="hero">
+    <div class="badge">🌿 Interactive Quiz</div>
+    <h1>Data Structures &amp; <span>Algorithms</span></h1>
+    <p class="sub">Course Instructor: <strong>Engr. Lee-Mher S. Binay-an</strong></p>
+  </header>
+
+  <div class="layout">
+
+    <!-- ================= MAIN ================= -->
+    <main>
+
+      <!-- ===== START ===== -->
+      <section id="startScreen" class="card">
+        <div class="welcome">
+          <span class="big-leaf">🌳</span>
+          <h2>Welcome, future programmer!</h2>
+          <p>Test your understanding of Data Structures and Algorithms — from arrays, linked lists, and recursion to Big-O analysis and algorithm strategies. Answer each question and get instant feedback with a short explanation.</p>
+
+          <div class="stats-row">
+            <div class="stat"><span class="num" id="totalQ">0</span><span class="lbl">Questions</span></div>
+            <div class="stat"><span class="num">8</span><span class="lbl">Topics</span></div>
+            <div class="stat"><span class="num">∞</span><span class="lbl">Retries</span></div>
+          </div>
+
+          <div class="topic-list">
+            <span>DSA Fundamentals</span>
+            <span>Java Basics</span>
+            <span>Data Types &amp; ADT</span>
+            <span>Big-O Notation</span>
+            <span>Recursion</span>
+            <span>Linked Lists</span>
+            <span>Algorithm Strategies</span>
+            <span>Trace Simulations</span>
+          </div>
+
+          <div class="mt24">
+            <button class="btn" id="startBtn">🌱 Start the Quiz</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== QUIZ ===== -->
+      <section id="quizScreen" class="card" style="display:none">
+        <div class="quiz-top">
+          <span class="section-tag" id="sectionTag">Section</span>
+          <span class="counter" id="counter">1 / 1</span>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="q-text">
+          <span class="q-num" id="qNum">1</span>
+          <span id="qText">Question…</span>
+        </div>
+
+        <div class="options" id="options"></div>
+
+        <div class="feedback" id="feedback">
+          <div class="head"><span class="emo" id="fbEmo">💚</span><span id="fbTitle">Correct!</span></div>
+          <p id="fbBody"></p>
+        </div>
+
+        <div class="quiz-bottom">
+          <div class="score-live" id="liveScore">Score: <b>0</b></div>
+          <button class="btn" id="nextBtn" style="display:none">Next →</button>
+        </div>
+      </section>
+
+      <!-- ===== RESULT ===== -->
+      <section id="resultScreen" class="card" style="display:none">
+        <div class="result-head">
+          <span class="trophy" id="resultEmoji">🏆</span>
+          <h2 id="resultTitle">Quiz Complete!</h2>
+          <p id="resultMsg">Great job!</p>
+        </div>
+
+        <div class="score-circle" id="scoreCircle" style="--pct:0%">
+          <div class="score-inner">
+            <div class="p" id="scorePct">0%</div>
+            <div class="f" id="scoreFrac">0 / 0</div>
+          </div>
+        </div>
+
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="center mt24">
+          <button class="btn" id="restartBtn">🍀 Try Again</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" style="display:none">
+      <div class="side-head">
+        <h3>🗺️ Question Map</h3>
+        <p>Track your progress live</p>
+      </div>
+
+      <div class="side-stats">
+        <div class="ss"><span class="ss-num" id="ssAnswered">0</span><span class="ss-lbl">Answered</span></div>
+        <div class="ss remain"><span class="ss-num" id="ssRemain">0</span><span class="ss-lbl">Remaining</span></div>
+        <div class="ss correct"><span class="ss-num" id="ssCorrect">0</span><span class="ss-lbl">Correct</span></div>
+        <div class="ss wrong"><span class="ss-num" id="ssWrong">0</span><span class="ss-lbl">Wrong</span></div>
+      </div>
+
+      <div class="legend">
+        <span><i class="dot dot-un"></i> Unanswered</span>
+        <span><i class="dot dot-ok"></i> Correct</span>
+        <span><i class="dot dot-no"></i> Wrong</span>
+      </div>
+
+      <div class="map-scroll" id="mapScroll"></div>
+    </aside>
+
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   QUESTION BANK
+   ========================================================= */
+const SECTIONS = [
+  {
+    name: "Part 1 · Java & DSA Fundamentals",
+    questions: [
+      { q:"In Java, what is a programmatic way of storing data so that it can be used efficiently?",
+        o:["Algorithm","Data Structure","Compiler","Operating System"], a:1,
+        e:"A <b>Data Structure</b> is a programmatic way of organizing and storing data in memory so that it can be used efficiently." },
+
+      { q:"Which of the following is NOT a category of algorithms?",
+        o:["Search","Sort","Compile","Insert"], a:2,
+        e:"<b>Compile</b> is a language-processing step, not a category of algorithms. Search, Sort, and Insert are all classic algorithm categories." },
+
+      { q:"In Java, what represents the set of operations that a data structure supports?",
+        o:["Implementation","Interface","Algorithm","Compiler"], a:1,
+        e:"The <b>interface</b> defines the set of operations a data structure supports, while the implementation is how those operations are actually carried out." },
+
+      { q:"Which characteristic of a data structure ensures that its implementation should implement its interface correctly?",
+        o:["Time Complexity","Space Complexity","Correctness","Feasibility"], a:2,
+        e:"<b>Correctness</b> guarantees that the implementation truly performs everything the interface promises." },
+
+      { q:"In algorithm analysis, what is the scenario where an operation takes maximum time?",
+        o:["Best Case","Average Case","Worst Case","Random Case"], a:2,
+        e:"The <b>Worst Case</b> is the scenario where the algorithm takes the maximum amount of time for a given input size." },
+
+      { q:"In Java, what is a single unit of values called?",
+        o:["Data","Data Item","Field","Record"], a:1,
+        e:"A <b>Data Item</b> is a single unit of values — it may be a single value or a group of values." },
+
+      { q:"Data items that cannot be divided are called:",
+        o:["Group Items","Elementary Items","Entity Set","Attribute"], a:1,
+        e:"<b>Elementary Items</b> are data items that cannot be subdivided further into smaller meaningful units." },
+
+      { q:"Which characteristic of an algorithm ensures it terminates after a finite number of steps?",
+        o:["Unambiguous","Finiteness","Feasibility","Input"], a:1,
+        e:"<b>Finiteness</b> means an algorithm must terminate after a finite number of steps — it cannot run forever." },
+
+      { q:"What type of analysis assumes that all factors like processor speed are constant?",
+        o:["A Posterior Analysis","A Priori Analysis","Empirical Analysis","Runtime Analysis"], a:1,
+        e:"<b>A Priori Analysis</b> is theoretical — it assumes all other factors (like processor speed) are constant and analyzes the algorithm itself." },
+
+      { q:"What is the formula for space complexity?",
+        o:["S(P) = C - SP(I)","S(P) = C x SP(I)","S(P) = C + SP(I)","S(P) = C / SP(I)"], a:2,
+        e:"Space complexity is <b>S(P) = C + SP(I)</b>, where C is the fixed part and SP(I) is the variable part depending on the input." },
+
+      { q:"Which notation represents the upper bound of an algorithm's running time?",
+        o:["Omega","Theta","Big Oh (O)","Alpha"], a:2,
+        e:"<b>Big Oh (O)</b> notation describes the upper bound — the worst-case running time of an algorithm." },
+
+      { q:"Which asymptotic notation represents both upper and lower bounds?",
+        o:["Big Oh (O)","Omega","Theta","Beta"], a:2,
+        e:"<b>Theta (Θ)</b> notation bounds a function from both above and below, giving a tight bound." },
+
+      { q:"What is the time complexity notation for linear time?",
+        o:["O(1)","O(log n)","O(n)","O(n^2)"], a:2,
+        e:"<b>O(n)</b> is linear time — the work grows proportionally with the input size n." },
+
+      { q:"Which algorithm approach makes decisions based on the closest solution that seems optimal?",
+        o:["Dynamic Programming","Divide and Conquer","Greedy Algorithm","Backtracking"], a:2,
+        e:"A <b>Greedy Algorithm</b> makes the locally optimal choice at each step, hoping it leads to the global optimum." },
+
+      { q:"Which of the following is an example of a greedy algorithm that can be implemented in Java?",
+        o:["Merge Sort","Quick Sort","Dijkstra's Algorithm","Binary Search"], a:2,
+        e:"<b>Dijkstra's Algorithm</b> is a classic greedy algorithm — it always picks the closest unvisited vertex." },
+
+      { q:"In divide and conquer, what is the first step?",
+        o:["Merge","Conquer","Divide","Sort"], a:2,
+        e:"The first step is <b>Divide</b> — break the problem into smaller sub-problems, then conquer, then combine/merge." },
+
+      { q:"Which algorithm uses memorization to remember results of solved sub-problems?",
+        o:["Greedy Algorithm","Dynamic Programming","Divide and Conquer","Linear Search"], a:1,
+        e:"<b>Dynamic Programming</b> stores (memoizes) results of sub-problems so they are never recomputed." },
+
+      { q:"In Java, what is the default value of an int instance variable?",
+        o:["0.0","0","false","null"], a:1,
+        e:"The default value of an <b>int</b> is <b>0</b>. (0.0 is for double, false for boolean, null for object references.)" },
+
+      { q:"In a Java array, what is each item stored called?",
+        o:["Index","Element","Node","Pointer"], a:1,
+        e:"Each item stored in an array is an <b>element</b>; the numerical position is the index." },
+
+      { q:"Which Java operation prints all array elements one by one using a for loop?",
+        o:["Insertion","Deletion","Traverse","Search"], a:2,
+        e:"<b>Traverse</b> means visiting every element of the array one by one." }
+    ]
+  },
+
+  {
+    name: "Part 2 · DSA Concepts & Applications",
+    questions: [
+      { q:"An IT student is designing a program that must organize student records and process them efficiently. Which statement best describes the role of Data Structures and Algorithms (DSA)?",
+        o:["Data structures replace algorithms in all programs.",
+           "Data structures organize data, while algorithms provide steps for processing or solving problems using that data.",
+           "Algorithms only store data in memory.",
+           "DSA is used only for designing user interfaces."], a:1,
+        e:"DSA works as a pair: <b>data structures organize data</b>, while <b>algorithms provide the step-by-step process</b> for using that data to solve problems." },
+
+      { q:"Which term refers to a finite, well-defined, and ordered sequence of steps used to solve a problem or complete a task?",
+        o:["Data object","Data structure","Data type","Algorithm"], a:3,
+        e:"An <b>algorithm</b> is a finite, well-defined, ordered sequence of steps that solves a problem." },
+
+      { q:"A system works well with 100 records but becomes extremely slow when processing millions of records. Which reason for studying DSA is most directly illustrated?",
+        o:["Efficiency at scale","Program decoration","File naming","Screen resolution"], a:0,
+        e:"This illustrates <b>efficiency at scale</b> — good DSA choices keep programs fast even as data grows." },
+
+      { q:"A navigation application calculates the fastest route between two locations. According to the lesson, which DSA application is most closely related to this task?",
+        o:["Stack-based text formatting","Array printing only","Graph data structures with shortest-path algorithms","File compression"], a:2,
+        e:"Maps and routes are modeled with <b>graphs</b>, and the fastest path is found using <b>shortest-path algorithms</b> such as Dijkstra's." },
+
+      { q:"Which algorithm strategy tries possible solutions in a straightforward way until the correct one is found?",
+        o:["Greedy","Brute Force","Recursive","Divide and Conquer"], a:1,
+        e:"<b>Brute Force</b> tries every possible solution in a straightforward manner until the correct one is found." },
+
+      { q:"A sorting method repeatedly divides a large list into smaller parts, solves the smaller parts, and combines the results. Which strategy is being used?",
+        o:["Backtracking","Greedy","Brute Force","Divide and Conquer"], a:3,
+        e:"<b>Divide and Conquer</b> — divide the problem, solve the sub-problems, then combine the results (like Merge Sort)." },
+
+      { q:"A change-making procedure always selects the largest coin value that does not exceed the remaining amount and never revisits an earlier choice. Which strategy does this describe?",
+        o:["Greedy","Recursive","Backtracking","Brute Force"], a:0,
+        e:"<b>Greedy</b> — it takes the best immediate (locally optimal) choice and never goes back to reconsider." },
+
+      { q:"A Sudoku-solving program places a number, checks whether the choice is valid, and removes it when it leads to a dead end. Which algorithm strategy is illustrated?",
+        o:["Divide and Conquer","Greedy","Backtracking","Brute Force"], a:2,
+        e:"<b>Backtracking</b> — try a choice, and if it leads to a dead end, undo it and try the next option." },
+
+      { q:"A student writes an algorithm that continues repeating forever even though the required result has already been produced. Which required property of a good algorithm is violated?",
+        o:["Effective","Finite","Input","Output"], a:1,
+        e:"<b>Finiteness</b> is violated — an algorithm must terminate after a finite number of steps." },
+
+      { q:"A student has already understood a programming problem and identified the required inputs and outputs. According to the four-step process in the lesson, what should the student do next?",
+        o:["Break the solution into logical steps before writing, testing, and refining it.",
+           "Skip directly to the final output.",
+           "Remove all inputs from the algorithm.",
+           "Start with a flowchart before understanding the problem."], a:0,
+        e:"After understanding the problem and identifying inputs/outputs, the next step is to <b>design the solution by breaking it into logical steps</b>, then write, test, and refine." },
+
+      { q:"The value 25 appears as one individual value inside a collection of student ages. What is this single unit of value called?",
+        o:["Data object","File","Data item","Abstract data type"], a:2,
+        e:"A single unit of value such as 25 is a <b>data item</b>." },
+
+      { q:"A Student record contains an ID number, name, course, and age that together describe one student. What does the complete Student record represent?",
+        o:["Data object or entity","Primitive data type","Data item only","Pointer"], a:0,
+        e:"A collection of related data items forming one logical unit is a <b>data object (entity)</b> — here, one Student record." },
+
+      { q:"Which of the following is classified as a primitive data type in the lesson?",
+        o:["Array","Stack","File","Boolean"], a:3,
+        e:"<b>Boolean</b> is a primitive data type. Arrays, stacks, and files are non-primitive/composite structures." },
+
+      { q:"Which non-primitive data type is described as a fixed-size, ordered collection of elements of the same type accessed by an index?",
+        o:["Pointer","Array","Boolean","Character"], a:1,
+        e:"An <b>array</b> is a fixed-size, ordered collection of elements of the same type, accessed by index." },
+
+      { q:"A programmer needs a structure defined by behavior such as add, remove, and peek, without focusing on how it is stored in memory. Which concept best matches this requirement?",
+        o:["Primitive type","Data item","Abstract Data Type (ADT)","File"], a:2,
+        e:"An <b>Abstract Data Type (ADT)</b> defines behavior (operations) while hiding the underlying implementation." },
+
+      { q:"A programmer chooses an appropriately sized data type so a large application does not waste unnecessary storage. Which reason for choosing the right data type is illustrated?",
+        o:["Memory efficiency","Traversal","Merging","Recursion"], a:0,
+        e:"Choosing the right data type conserves storage — that is <b>memory efficiency</b>." },
+
+      { q:"A program visits every record in a student list one at a time to display all records. Which data operation is being performed?",
+        o:["Sorting","Deletion","Insertion","Traversing"], a:3,
+        e:"<b>Traversing</b> means visiting each element one at a time, usually to process or display it." },
+
+      { q:"A help-desk system checks whether a ticket number exists and returns its location when found. Which data operation is being performed?",
+        o:["Merging","Searching","Sorting","Traversing"], a:1,
+        e:"<b>Searching</b> locates a specific value and reports whether (and where) it exists." },
+
+      { q:"A cancelled order must be removed from a pending-orders structure. The system first locates the order and then keeps the remaining elements correctly organized. Which operation is central to this task?",
+        o:["Traversing","Updating","Deletion","Sorting"], a:2,
+        e:"<b>Deletion</b> removes an element and keeps the remaining structure intact." },
+
+      { q:"Two already organized class lists must be combined into one master roster while preserving the structure's integrity. Which operation is most appropriate?",
+        o:["Merging","Searching","Traversing","Deletion"], a:0,
+        e:"<b>Merging</b> combines two organized collections into one while preserving order and integrity." }
+    ]
+  },
+
+  {
+    name: "Part 3 · Core Concepts Check",
+    questions: [
+      { q:"Which statement best describes what an algorithm is?",
+        o:["A single command executed without any order",
+           "A storage method for organizing data values",
+           "A fixed list of predefined output values",
+           "A step-by-step procedure defining ordered instructions"], a:3,
+        e:"An <b>algorithm</b> is a step-by-step procedure of ordered instructions that solves a problem." },
+
+      { q:"A student designs an algorithm to add two numbers and display the result, following the START, declare, define, add, store, print, STOP sequence. Which step should come immediately after declaring the variables a, b, and c?",
+        o:["Print the value of c","Define the values of a and b","Stop the algorithm process","Store output of step four"], a:1,
+        e:"After declaring the variables, you <b>define/assign the values of a and b</b> before performing the addition." },
+
+      { q:"A programmer wants to add an element at a specific position of an array and shift the following elements. Which array operation is being performed?",
+        o:["Traverse","Search","Update","Insertion"], a:3,
+        e:"<b>Insertion</b> adds an element at a given position, shifting existing elements to make room." },
+
+      { q:"Which two factors does Big O analysis mainly focus on when analyzing an algorithm?",
+        o:["Variable names and function calls","Space complexity and time complexity","Programming language and compiler","Input format and output format"], a:1,
+        e:"Big O analysis focuses on <b>time complexity</b> and <b>space complexity</b>." },
+
+      { q:"A loop visits every element of an array exactly once to print its value. What is the time complexity of this operation?",
+        o:["O(1)","O(log N)","O(N)","O(N²)"], a:2,
+        e:"Visiting every element once is <b>O(N)</b> — linear time." },
+
+      { q:"A statement accesses only the third element of an array directly using its index. What is the time complexity of this operation?",
+        o:["O(1)","O(N)","O(log N)","O(N²)"], a:0,
+        e:"Direct index access in an array is <b>O(1)</b> — constant time, because it doesn't depend on array size." },
+
+      { q:"Which asymptotic notation expresses the upper bound, or worst case time complexity, of an algorithm?",
+        o:["Omega notation","Theta notation","Sigma notation","Big Oh notation"], a:3,
+        e:"<b>Big Oh (O)</b> notation expresses the upper bound / worst-case time complexity." },
+
+      { q:"Which technique uses loop constructs such as for, while, or do-while to repeat a task?",
+        o:["Iteration","Recursion","Memorization","Backtracking"], a:0,
+        e:"<b>Iteration</b> repeats a task using loops (for, while, do-while)." },
+
+      { q:"In which type of linked list can items be navigated both forward and backward?",
+        o:["Simple linked list","Circular linked list","Singly linked list","Doubly linked list"], a:3,
+        e:"A <b>doubly linked list</b> has both next and previous pointers, so you can move forward and backward." },
+
+      { q:"What must a recursive function have in order to terminate its execution?",
+        o:["A loop counter","A return type","A parameter list","A base case"], a:3,
+        e:"A recursive function must have a <b>base case</b> — the condition that stops further recursive calls." },
+
+      { q:"Which data structure is described as the second most-used data structure after array?",
+        o:["Stack","Queue","Linked list","Tree"], a:2,
+        e:"The <b>linked list</b> is described as the second most-used data structure after the array." },
+
+      { q:"In Java, what is the default value assigned to an int element when an array is initialized with size?",
+        o:["false","null","0","1"], a:2,
+        e:"Java initializes int array elements to <b>0</b> by default." },
+
+      { q:"Which statement best explains why a linked list is more suitable than an array when a program needs frequent insertions and deletions in the middle of a list?",
+        o:["It updates neighboring pointers instead of shifting other elements.",
+           "It stores every node together in one memory block.",
+           "It gives constant time access to any list position.",
+           "It uses less memory since nodes skip storing data."], a:0,
+        e:"A linked list only <b>updates neighboring pointers</b> — no shifting of elements is needed, unlike an array." },
+
+      { q:"In a circular linked list, what does the last item's next link point to?",
+        o:["The first element","A null value","The previous element","Itself directly"], a:0,
+        e:"In a circular linked list, the last node's next pointer goes back to the <b>first element</b>." },
+
+      { q:"What must every algorithm have according to its characteristics?",
+        o:["Zero or more well defined inputs","Exactly one output value only","Unlimited number of steps allowed","Dependence on one programming language"], a:0,
+        e:"An algorithm must have <b>zero or more well-defined inputs</b> — inputs are optional but must be clearly defined." },
+
+      { q:"How is an array defined?",
+        o:["A method that sorts items by value",
+           "A structure that links items using pointers",
+           "A process that searches items by each value index",
+           "A container that holds items of the same type"], a:3,
+        e:"An array is a <b>container that holds items of the same type</b> in contiguous memory." },
+
+      { q:"In an array, what is the numerical value used to identify the location of an element called?",
+        o:["Element","Index","Traverse","Update"], a:1,
+        e:"The numerical position of an element is its <b>index</b>." },
+
+      { q:"What does a data structure primarily provide?",
+        o:["A programming language for writing software applications",
+           "A method for testing software program errors",
+           "A way of organizing data for efficient use",
+           "A hardware component for storing permanent files"], a:2,
+        e:"A data structure provides a <b>way of organizing data for efficient use</b>." },
+
+      { q:"What is the main purpose of a data type?",
+        o:["To sort data elements of array in ascending order",
+           "To search for a specific data value",
+           "To delete unwanted data elements in the array",
+           "To classify data and define allowed operations"], a:3,
+        e:"A data type <b>classifies data and defines which operations are allowed</b> on it." }
+    ]
+  },
+
+  {
+    name: "Basic Concepts",
+    questions: [
+      { q:"A developer needs a structure that stores unique usernames and automatically prevents duplicate entries. Which ADT best matches the requirement?",
+        o:["Queue","List","Set","Stack"], a:2,
+        e:"A <b>Set</b> stores unique elements only — duplicates are automatically rejected." },
+
+      { q:"A program retrieves employee information by using an employee ID as a key. Which ADT is most appropriate?",
+        o:["Map","Stack","Queue","Set"], a:0,
+        e:"A <b>Map</b> stores key–value pairs, perfect for looking up data by a key such as employee ID." },
+
+      { q:"A programmer knows the operations available for a stack but does not need to know whether the stack is implemented using an array or linked structure. Which concept allows this?",
+        o:["Algorithm complexity","Data traversal","Iteration","Abstraction"], a:3,
+        e:"<b>Abstraction</b> hides implementation details and exposes only the essential operations." },
+
+      { q:"An algorithm always produces the expected result for all valid inputs. Which characteristic does this demonstrate?",
+        o:["Finiteness","Correctness","Space efficiency","Scalability"], a:1,
+        e:"<b>Correctness</b> means the algorithm produces the expected output for every valid input." },
+
+      { q:"A developer is choosing between two structures. Structure X provides faster searching, while Structure Y makes frequent insertion and deletion easier. What should primarily determine the choice?",
+        o:["The structure with the shorter name",
+           "The structure introduced first in the course",
+           "The operations most frequently required by the program",
+           "The structure containing more methods"], a:2,
+        e:"The right choice depends on the <b>operations the program needs most often</b>." },
+
+      { q:"A program performs the same number of operations whether it processes 10 records or 10,000 records. Which time complexity best describes this behavior?",
+        o:["O(1)","O(n)","O(log n)","O(n²)"], a:0,
+        e:"Constant time <b>O(1)</b> — the work does not depend on the input size." },
+
+      { q:"An algorithm processes every element of a collection exactly once. If the collection size doubles, the amount of work approximately doubles. Which complexity best describes it?",
+        o:["O(1)","O(log n)","O(n²)","O(n)"], a:3,
+        e:"Work proportional to input size is <b>O(n)</b> — linear time." },
+
+      { q:"A sorting procedure uses two nested loops, and each loop may process approximately n elements. Which complexity is most likely?",
+        o:["O(log n)","O(n²)","O(1)","O(n)"], a:1,
+        e:"Two nested loops each running n times gives n × n = <b>O(n²)</b> — quadratic time." },
+
+      { q:"Two algorithms solve the same problem. Algorithm X uses less memory but takes longer, while Algorithm Y runs faster but requires additional memory. This situation demonstrates:",
+        o:["a time-space trade-off","data encapsulation","an invalid algorithm","a primitive data type"], a:0,
+        e:"This is the classic <b>time–space trade-off</b>: you can often trade memory for speed, or speed for memory." },
+
+      { q:"A programmer tests how an algorithm behaves when given an empty collection, one element, and an extremely large collection. Which practical design concern is being addressed?",
+        o:["Programming-language syntax","Algorithm classification","Edge cases and robustness","Data duplication"], a:2,
+        e:"Testing empty, single-element, and very large inputs is testing <b>edge cases and robustness</b>." }
+    ]
+  },
+
+  {
+    name: "Recursion",
+    questions: [
+      { q:"Consider the recursive definition factorial(n) = n × factorial(n − 1), with factorial(1) = 1. What is the value of factorial(4)?",
+        o:["16","24","12","20"], a:1,
+        e:"4! = 4 × 3 × 2 × 1 = <b>24</b>." },
+
+      { q:"A program evaluates factorial(5) using factorial(1) as its base case. Counting the original call, how many function calls are made?",
+        o:["3","4","5","6"], a:2,
+        e:"The calls are factorial(5), (4), (3), (2), (1) = <b>5 calls</b>." },
+
+      { q:"A student writes a recursive function but removes the condition that stops further recursive calls. What is the most likely result?",
+        o:["The function executes only once",
+           "The result automatically becomes zero",
+           "The function changes to iteration",
+           "Recursive calls continue until available stack space is exhausted"], a:3,
+        e:"Without a base case you get infinite recursion — <b>the call stack overflows</b> (StackOverflowError in Java)." },
+
+      { q:"What does count(4) return?<br><code>def count(n):<br>&nbsp;&nbsp;if n == 1: return 1<br>&nbsp;&nbsp;else: return 1 + count(n − 1)</code>",
+        o:["4","3","5","1"], a:0,
+        e:"count(4) = 1 + count(3) = 1 + 1 + count(2) = 1 + 1 + 1 + count(1) = <b>4</b>." },
+
+      { q:"A call to factorial(3) is made, with factorial(1) serving as the base case. Which sequence correctly shows the calls before the returns begin?",
+        o:["factorial(1) → factorial(2) → factorial(3)",
+           "factorial(3) → factorial(2) → factorial(1)",
+           "factorial(3) → factorial(1) → factorial(2)",
+           "factorial(2) → factorial(3) → factorial(1)"], a:1,
+        e:"Calls go <b>downward</b> first: factorial(3) → factorial(2) → factorial(1). Returns then come back in reverse." },
+
+      { q:"What is returned by mult_recur(3, 4)?<br><code>def mult_recur(a, b):<br>&nbsp;&nbsp;if b == 1: return a<br>&nbsp;&nbsp;else: return a + mult_recur(a, b − 1)</code>",
+        o:["7","9","12","15"], a:2,
+        e:"It adds <b>a</b> a total of b times: 3 + 3 + 3 + 3 = <b>12</b>." },
+
+      { q:"In the call mult_recur(5, 4), which value is repeatedly changed so that the recursion moves toward its base case?",
+        o:["The value of a is doubled","Both a and b increase","The value of a decreases by 1","The value of b decreases by 1"], a:3,
+        e:"<b>b decreases by 1</b> on each call until it reaches the base case b == 1." },
+
+      { q:"What is the primary problem with the recursive case?<br><code>def solve(n):<br>&nbsp;&nbsp;if n == 0: return 0<br>&nbsp;&nbsp;else: return solve(n)</code>",
+        o:["It calls itself with the same value, so it does not move toward the base case",
+           "It returns too many values",
+           "It uses a base case",
+           "It converts the recursion into iteration"], a:0,
+        e:"solve(n) calls solve(n) again with the <b>same value</b> — it never approaches the base case, causing infinite recursion." },
+
+      { q:"Suppose factorial(4) has reached the call factorial(1) but has not yet started returning results. Which set of calls has been placed on the call stack?",
+        o:["Only factorial(1)",
+           "factorial(4) and factorial(1) only",
+           "factorial(4), factorial(3), factorial(2), and factorial(1)",
+           "factorial(1), factorial(2), and factorial(3) only"], a:2,
+        e:"All pending calls stack up: <b>factorial(4), (3), (2), and (1)</b>." },
+
+      { q:"During factorial(4), the base case factorial(1) returns 1. What happens next?",
+        o:["The program immediately calls factorial(5)",
+           "The previous recursive calls resume in reverse order and build the final result",
+           "All previous calls are discarded without returning values",
+           "The base case executes repeatedly"], a:1,
+        e:"The stack unwinds — <b>each previous call resumes in reverse order</b>, multiplying its value into the running result." }
+    ]
+  },
+
+  {
+    name: "Linked Lists",
+    questions: [
+      { q:"A program needs to access node C. Which traversal correctly represents how it is reached from head?<br><code>head → A → B → C → None</code>",
+        o:["head → C","head → A → B → C","head → B → C → A","C → B → A → head"], a:1,
+        e:"A singly linked list must be walked sequentially: <b>head → A → B → C</b>." },
+
+      { q:"A new node X is inserted immediately after node B. What should the list become?<br><code>head → A → B → C → None</code>",
+        o:["head → X → A → B → C → None",
+           "head → A → X → B → C → None",
+           "head → A → B → X → C → None",
+           "head → A → B → C → X → None"], a:2,
+        e:"X goes right after B, so the order becomes <b>A → B → X → C</b>." },
+
+      { q:"Node B is removed from the original list. Which reference must be changed to preserve the list?<br><code>head → A → B → C → None</code>",
+        o:["C must reference A","head must reference C","B must reference A","A must reference C"], a:3,
+        e:"To skip B, <b>A must reference C</b> (A.next = C)." },
+
+      { q:"What does None indicate?<br><code>head → 10 → 20 → 30 → None</code>",
+        o:["Node 30 is the final node and has no next node",
+           "Node 30 has been deleted",
+           "The list contains no data",
+           "Node 10 has no successor"], a:0,
+        e:"None (null) marks the <b>end of the list</b> — node 30 has no next node." },
+
+      { q:"If head is changed so that it refers directly to B, what happens when traversal begins from the new head?<br><code>head → A → B → C → None</code>",
+        o:["Traversal still begins at A",
+           "Node C becomes the first node",
+           "Node A is no longer reached through traversal from head",
+           "All nodes are automatically deleted"], a:2,
+        e:"Traversal now starts at B, so <b>node A is skipped and unreachable</b> from head (though it still exists in memory)." },
+
+      { q:"A navigation system needs to move from the current node to either the next node or the previous node. Which linked-list type best supports this requirement?",
+        o:["Singly linked list","Doubly linked list","Circular singly linked list only","Array-based list"], a:1,
+        e:"A <b>doubly linked list</b> has both next and prev pointers, supporting forward and backward movement." },
+
+      { q:"The programmer wants to convert the nodes into a circular linked list. What should node C reference?<br><code>A → B → C</code>",
+        o:["None","Node B","Itself","Node A"], a:3,
+        e:"In a circular list the last node points back to the first: <b>C → A</b>." },
+
+      { q:"A program stores a collection whose size changes frequently. New elements are regularly inserted and existing elements are removed, while direct index-based access is not important. Which structure is generally more suitable?",
+        o:["Linked list","Fixed array","Primitive variable","Boolean value"], a:0,
+        e:"A <b>linked list</b> handles frequent insertions and deletions efficiently without resizing or shifting." },
+
+      { q:"A linked list contains 100 nodes. A programmer wants to access node 80 directly in the same way an array accesses an element by index. Why is this not normally possible?",
+        o:["Linked lists cannot store more than one value",
+           "Nodes must always be sorted first",
+           "Linked lists require sequential traversal through node references",
+           "Every linked-list node has the same address"], a:2,
+        e:"Linked lists have no index formula — you must <b>traverse node by node</b> from the head, giving O(n) access." },
+
+      { q:"Node 20 must be deleted. Which change correctly preserves the remaining list?<br><code>head → 10 → 20 → 30 → None</code>",
+        o:["Make 30 reference 20","Make node 10 reference node 30","Make head reference 30","Make node 20 reference node 10"], a:1,
+        e:"Skip over node 20: <b>node 10's next pointer should point to node 30</b>." }
+    ]
+  },
+
+  {
+    name: "Simulation · Recursion",
+    questions: [
+      { q:"What is returned by total(4)?<br><code>def total(n):<br>&nbsp;&nbsp;if n == 0: return 0<br>&nbsp;&nbsp;return n + total(n − 1)</code>",
+        o:["8","10","12","16"], a:1,
+        e:"4 + 3 + 2 + 1 + 0 = <b>10</b>." },
+
+      { q:"What is returned by mystery(3)?<br><code>def mystery(n):<br>&nbsp;&nbsp;if n == 0: return 2<br>&nbsp;&nbsp;return mystery(n − 1) + 3</code>",
+        o:["8","5","14","11"], a:3,
+        e:"mystery(0) = 2, then +3 three times: 2 + 3 + 3 + 3 = <b>11</b>." },
+
+      { q:"What is printed by countdown(3)?<br><code>def countdown(n):<br>&nbsp;&nbsp;if n == 0: return<br>&nbsp;&nbsp;print(n)<br>&nbsp;&nbsp;countdown(n − 1)</code>",
+        o:["3 2 1","1 2 3","3 3 3","2 1 0"], a:0,
+        e:"The print happens <b>before</b> the recursive call, so it prints <b>3 2 1</b>." },
+
+      { q:"What is returned by power2(4)?<br><code>def power2(n):<br>&nbsp;&nbsp;if n == 0: return 1<br>&nbsp;&nbsp;return 2 * power2(n − 1)</code>",
+        o:["8","12","16","32"], a:2,
+        e:"2⁴ = <b>16</b> (2 × 2 × 2 × 2 × 1)." },
+
+      { q:"How many total calls to process occur when process(4) is executed, including the original call and the base-case call?<br><code>def process(n):<br>&nbsp;&nbsp;if n == 0: return<br>&nbsp;&nbsp;process(n − 1)</code>",
+        o:["4","5","3","6"], a:1,
+        e:"process(4), (3), (2), (1), (0) = <b>5 calls</b>." },
+
+      { q:"What is returned by sequence(4)?<br><code>def sequence(n):<br>&nbsp;&nbsp;if n &lt;= 1: return n<br>&nbsp;&nbsp;return sequence(n − 1) + sequence(n − 2)</code>",
+        o:["3","4","5","2"], a:0,
+        e:"seq(0)=0, seq(1)=1, seq(2)=1, seq(3)=2, seq(4)=<b>3</b> (Fibonacci-style)." },
+
+      { q:"What happens when wrong(3) is executed?<br><code>def wrong(n):<br>&nbsp;&nbsp;if n == 0: return 0<br>&nbsp;&nbsp;return wrong(n + 1)</code>",
+        o:["It immediately returns 3","It eventually reaches 0","It returns 4","The calls move away from the base case and continue recursively"], a:3,
+        e:"n increases (n + 1) instead of decreasing, so it <b>moves away from the base case</b> — infinite recursion." },
+
+      { q:"Which value is returned by add_down(4)?<br><code>def add_down(n):<br>&nbsp;&nbsp;if n == 1: return 1<br>&nbsp;&nbsp;return n + add_down(n − 1)</code>",
+        o:["24","7","10","16"], a:2,
+        e:"4 + 3 + 2 + 1 = <b>10</b>." },
+
+      { q:"What is printed by show(3)?<br><code>def show(n):<br>&nbsp;&nbsp;if n == 0: return<br>&nbsp;&nbsp;show(n − 1)<br>&nbsp;&nbsp;print(n)</code>",
+        o:["3 2 1","1 2 3","0 1 2","3 3 3"], a:1,
+        e:"The print happens <b>after</b> the recursive call, so the smallest value prints first: <b>1 2 3</b>." },
+
+      { q:"What is returned by double(4)?<br><code>def double(n):<br>&nbsp;&nbsp;if n &lt;= 1: return 1<br>&nbsp;&nbsp;return 2 * double(n − 1)</code>",
+        o:["16","4","6","8"], a:3,
+        e:"double(1)=1, double(2)=2, double(3)=4, double(4)=<b>8</b>." }
+    ]
+  },
+
+  {
+    name: "Simulation · Linked Lists",
+    questions: [
+      { q:"The following statements execute. Which value does current.data contain?<br><code>current = head<br>current = current.next<br>current = current.next</code><br><code>head → 10 → 20 → 30 → None</code>",
+        o:["30","10","20","None"], a:0,
+        e:"Two next-hops from head: 10 → 20 → <b>30</b>." },
+
+      { q:"A new node containing 15 must be inserted immediately after 10. Which resulting list is correct?<br><code>head → 10 → 20 → 30 → None</code>",
+        o:["10 → 20 → 15 → 30","15 → 10 → 20 → 30","10 → 15 → 20 → 30","10 → 20 → 30 → 15"], a:2,
+        e:"15 goes directly after 10: <b>10 → 15 → 20 → 30</b>." },
+
+      { q:"The statement head = head.next executes. What is the resulting list when traversal begins from the new head?<br><code>head → 5 → 10 → 15 → None</code>",
+        o:["5 → 15 → None","10 → 15 → None","5 → 10 → None","15 → None"], a:1,
+        e:"head moves past 5, so traversal starts at 10: <b>10 → 15 → None</b>." },
+
+      { q:"Suppose current refers to node B, and B is deleted. Which pair of pointer changes correctly reconnects the remaining nodes?<br><code>None &lt;- A &lt;-&gt; B &lt;-&gt; C -&gt; None</code>",
+        o:["A.prev = C and C.next = A","B.next = A and B.prev = C","A.next = B and C.prev = B","A.next = C and C.prev = A"], a:3,
+        e:"In a doubly linked list, bypass B by setting <b>A.next = C</b> and <b>C.prev = A</b>." },
+
+      { q:"If traversal begins at tail and repeatedly follows prev, which sequence is visited?<br><code>10 &lt;-&gt; 20 &lt;-&gt; 30 &lt;-&gt; 40</code>",
+        o:["10, 20, 30, 40","40, 20, 30, 10","40, 30, 20, 10","10, 30, 20, 40"], a:2,
+        e:"Following prev from the tail walks backward: <b>40, 30, 20, 10</b>." },
+
+      { q:"A node containing 5 is inserted at the beginning. Which set of changes correctly maintains the doubly linked structure?<br><code>10 &lt;-&gt; 20 &lt;-&gt; 30</code>",
+        o:["new.next = head, head.prev = new, then head = new",
+           "head.next = new, then new.prev = head",
+           "tail.next = new, then head = new",
+           "new.prev = head, then head.next = new"], a:0,
+        e:"Link the new node to the old head, fix the old head's prev pointer, then <b>update head to the new node</b>." },
+
+      { q:"Starting at A, the pointer moves to next five times. Which node is reached?<br><code>Circular list: A → B → C → A</code>",
+        o:["A","B","The pointer becomes None","C"], a:3,
+        e:"Moves: B(1), C(2), A(3), B(4), <b>C(5)</b>." },
+
+      { q:"The node containing 10 is deleted. Which condition must be true after the deletion?<br><code>Circular list: head → 10 → 20 → 30 → back to head</code>",
+        o:["30.next must become None",
+           "head becomes 20 and 30.next must refer to the new head",
+           "20.next must refer directly to itself",
+           "head must remain at 10"], a:1,
+        e:"The head moves to 20, and the last node (30) must point back to the <b>new head</b> to keep the list circular." },
+
+      { q:"A browser application must efficiently move from the current page to either the previous page or the next page. Which linked-list type is most appropriate?",
+        o:["Circular singly linked list","Singly linked list","Doubly linked list","Primitive list"], a:2,
+        e:"A <b>doubly linked list</b> supports both forward (next) and backward (prev) navigation." },
+
+      { q:"A circular linked list contains only one node with the value 50. Which representation correctly describes the structure?",
+        o:["head = tail = node50, and node50.next = node50",
+           "head = node50, while tail = None",
+           "node50.next = None",
+           "head = None, while tail = node50"], a:0,
+        e:"With one node, head and tail both point to it, and its next pointer <b>points to itself</b>." }
+    ]
+  }
+];
+
+/* =========================================================
+   FLATTEN
+   ========================================================= */
+const FLAT = [];
+SECTIONS.forEach((sec, si) => {
+  sec.questions.forEach((q) => {
+    FLAT.push({
+      sectionIndex: si,
+      sectionName: sec.name,
+      q: q.q,
+      o: q.o,
+      a: q.a,
+      e: q.e
+    });
+  });
+});
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let idx = 0;
+let answered = false;
+const userAnswers = new Array(FLAT.length).fill(null);
+
+/* =========================================================
+   DOM
+   ========================================================= */
+const startScreen  = document.getElementById('startScreen');
+const quizScreen   = document.getElementById('quizScreen');
+const resultScreen = document.getElementById('resultScreen');
+const sidebar      = document.getElementById('sidebar');
+
+const sectionTag   = document.getElementById('sectionTag');
+const counter      = document.getElementById('counter');
+const progressFill = document.getElementById('progressFill');
+const qNum         = document.getElementById('qNum');
+const qText        = document.getElementById('qText');
+const optionsBox   = document.getElementById('options');
+const feedback     = document.getElementById('feedback');
+const fbEmo        = document.getElementById('fbEmo');
+const fbTitle      = document.getElementById('fbTitle');
+const fbBody       = document.getElementById('fbBody');
+const nextBtn      = document.getElementById('nextBtn');
+const liveScore    = document.getElementById('liveScore');
+
+const mapScroll    = document.getElementById('mapScroll');
+const ssAnswered   = document.getElementById('ssAnswered');
+const ssCorrect    = document.getElementById('ssCorrect');
+const ssWrong      = document.getElementById('ssWrong');
+const ssRemain     = document.getElementById('ssRemain');
+
+const LETTERS = ['A','B','C','D','E'];
+
+/* =========================================================
+   START
+   ========================================================= */
+document.getElementById('totalQ').textContent = FLAT.length;
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  startScreen.style.display = 'none';
+  quizScreen.style.display = 'block';
+  sidebar.style.display = 'flex';
+
+  idx = 0;
+  answered = false;
+  userAnswers.fill(null);
+
+  buildMap();
+  renderQuestion();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* =========================================================
+   BUILD QUESTION MAP
+   ========================================================= */
+function shortName(name){
+  return name.replace(/^Part \d+\s*·\s*/, '');
+}
+
+function buildMap(){
+  mapScroll.innerHTML = '';
+
+  SECTIONS.forEach((sec, si) => {
+    const group = document.createElement('div');
+    group.className = 'map-group';
+
+    const title = document.createElement('div');
+    title.className = 'map-title';
+    title.textContent = shortName(sec.name);
+    group.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'map-grid';
+
+    FLAT.forEach((item, i) => {
+      if (item.sectionIndex !== si) return;
+      const chip = document.createElement('button');
+      chip.className = 'chip';
+      chip.dataset.idx = i;
+      chip.textContent = i + 1;
+      chip.title = 'Question ' + (i + 1);
+      chip.addEventListener('click', () => jumpTo(i));
+      grid.appendChild(chip);
+    });
+
+    group.appendChild(grid);
+    mapScroll.appendChild(group);
+  });
+
+  updateMap();
+}
+
+/* =========================================================
+   UPDATE MAP + STATS
+   ========================================================= */
+function updateMap(){
+  const chips = mapScroll.querySelectorAll('.chip');
+  let ok = 0, no = 0;
+
+  chips.forEach(chip => {
+    const i = +chip.dataset.idx;
+    chip.classList.remove('un','ok','no','current');
+
+    if (userAnswers[i] === null){
+      chip.classList.add('un');
+    } else if (userAnswers[i] === FLAT[i].a){
+      chip.classList.add('ok');
+      ok++;
+    } else {
+      chip.classList.add('no');
+      no++;
+    }
+
+    if (i === idx) chip.classList.add('current');
+  });
+
+  const answeredCount = ok + no;
+  ssAnswered.textContent = answeredCount;
+  ssCorrect.textContent  = ok;
+  ssWrong.textContent    = no;
+  ssRemain.textContent   = FLAT.length - answeredCount;
+
+  progressFill.style.width = (answeredCount / FLAT.length * 100) + '%';
+}
+
+/* =========================================================
+   SCROLL CURRENT CHIP INTO VIEW
+   ========================================================= */
+function scrollChipIntoView(){
+  const chip = mapScroll.querySelector('.chip[data-idx="' + idx + '"]');
+  if (!chip) return;
+
+  const cTop = chip.offsetTop;
+  const cH   = chip.offsetHeight;
+  const sTop = mapScroll.scrollTop;
+  const sH   = mapScroll.clientHeight;
+
+  if (cTop < sTop){
+    mapScroll.scrollTop = cTop - 12;
+  } else if (cTop + cH > sTop + sH){
+    mapScroll.scrollTop = cTop + cH - sH + 12;
+  }
+}
+
+/* =========================================================
+   SCORE HELPERS
+   ========================================================= */
+function currentScore(){
+  let s = 0;
+  for (let i = 0; i < FLAT.length; i++){
+    if (userAnswers[i] === FLAT[i].a) s++;
+  }
+  return s;
+}
+
+/* =========================================================
+   JUMP TO QUESTION
+   ========================================================= */
+function jumpTo(i){
+  idx = i;
+  renderQuestion();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* =========================================================
+   RENDER QUESTION
+   ========================================================= */
+function renderQuestion(){
+  const item = FLAT[idx];
+  const prev = userAnswers[idx];
+  answered = prev !== null;
+
+  sectionTag.textContent = item.sectionName;
+  counter.textContent = (idx + 1) + ' / ' + FLAT.length;
+
+  qNum.textContent = idx + 1;
+  qText.innerHTML = item.q;
+
+  liveScore.innerHTML = 'Score: <b>' + currentScore() + '</b>';
+
+  optionsBox.innerHTML = '';
+  item.o.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + opt + '</span>';
+    btn.addEventListener('click', (ev) => handleAnswer(i, btn, ev));
+    optionsBox.appendChild(btn);
+  });
+
+  feedback.className = 'feedback';
+  nextBtn.style.display = 'none';
+  nextBtn.textContent = (idx === FLAT.length - 1) ? 'See Results 🌿' : 'Next →';
+
+  /* ---- restore already-answered state ---- */
+  if (answered){
+    const allBtns = optionsBox.querySelectorAll('.option');
+    allBtns.forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.a) b.classList.add('correct');
+      else if (i === prev) b.classList.add('wrong');
+      else b.classList.add('dim');
+    });
+
+    if (prev === item.a){
+      feedback.className = 'feedback ok show';
+      fbEmo.textContent = '💚';
+      fbTitle.textContent = 'Correct! Great job!';
+      fbBody.innerHTML = '<span class="ans">' + LETTERS[item.a] + '. ' + item.o[item.a] + '</span> — ' + item.e;
+    } else {
+      feedback.className = 'feedback no show';
+      fbEmo.textContent = '💔';
+      fbTitle.textContent = 'Oops! Not quite.';
+      fbBody.innerHTML = 'The correct answer is <span class="ans">' + LETTERS[item.a] + '. ' + item.o[item.a] + '</span>.<br>' + item.e;
+    }
+
+    nextBtn.style.display = 'inline-flex';
+  }
+
+  updateMap();
+  scrollChipIntoView();
+}
+
+/* =========================================================
+   ANSWER HANDLING
+   ========================================================= */
+function handleAnswer(choice, btnEl, ev){
+  if (answered) return;
+  answered = true;
+
+  const item = FLAT[idx];
+  const isCorrect = choice === item.a;
+  userAnswers[idx] = choice;
+
+  const allBtns = optionsBox.querySelectorAll('.option');
+  allBtns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === item.a) b.classList.add('correct');
+    else if (i === choice) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+
+  const rect = btnEl.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+
+  if (isCorrect){
+    burst(cx, cy, 'correct');
+    feedback.className = 'feedback ok show';
+    fbEmo.textContent = '💚';
+    fbTitle.textContent = 'Correct! Great job!';
+    fbBody.innerHTML = '<span class="ans">' + LETTERS[item.a] + '. ' + item.o[item.a] + '</span> — ' + item.e;
+  } else {
+    burst(cx, cy, 'wrong');
+    feedback.className = 'feedback no show';
+    fbEmo.textContent = '💔';
+    fbTitle.textContent = 'Oops! Not quite.';
+    fbBody.innerHTML = 'The correct answer is <span class="ans">' + LETTERS[item.a] + '. ' + item.o[item.a] + '</span>.<br>' + item.e;
+  }
+
+  liveScore.innerHTML = 'Score: <b>' + currentScore() + '</b>';
+  nextBtn.style.display = 'inline-flex';
+
+  updateMap();
+  scrollChipIntoView();
+}
+
+/* =========================================================
+   NEXT
+   ========================================================= */
+nextBtn.addEventListener('click', () => {
+  if (idx < FLAT.length - 1){
+    idx++;
+    renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    showResults();
+  }
+});
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+function showResults(){
+  quizScreen.style.display = 'none';
+  resultScreen.style.display = 'block';
+
+  const total = FLAT.length;
+  const score = currentScore();
+  const pct = Math.round((score / total) * 100);
+
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('scoreFrac').textContent = score + ' / ' + total;
+  document.getElementById('scoreCircle').style.setProperty('--pct', pct + '%');
+
+  let emoji = '🌱', title = '', msg = '';
+  if (pct === 100){ emoji='🏆'; title='Perfect Score!'; msg='Outstanding! You have mastered Data Structures and Algorithms.'; }
+  else if (pct >= 85){ emoji='🌟'; title='Excellent Work!'; msg='You have a strong grasp of DSA concepts. Keep it up!'; }
+  else if (pct >= 70){ emoji='🍀'; title='Well Done!'; msg='Good understanding! Review a few topics and you will be unstoppable.'; }
+  else if (pct >= 50){ emoji='🌿'; title='Keep Growing!'; msg='You are on the right track. Review the explanations and try again.'; }
+  else { emoji='🌱'; title='Keep Practicing!'; msg='Every expert was once a beginner. Review the material and retake the quiz.'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultMsg').textContent = msg;
+
+  const bd = document.getElementById('breakdown');
+  bd.innerHTML = '';
+
+  SECTIONS.forEach((sec, si) => {
+    let correct = 0, tot = 0;
+    FLAT.forEach((item, i) => {
+      if (item.sectionIndex === si){
+        tot++;
+        if (userAnswers[i] === item.a) correct++;
+      }
+    });
+    const p = tot ? Math.round(correct / tot * 100) : 0;
+
+    const div = document.createElement('div');
+    div.className = 'bd-item';
+    div.innerHTML =
+      '<div class="name">' + sec.name + '</div>' +
+      '<div class="val">' + correct + ' / ' + tot + ' correct (' + p + '%)</div>' +
+      '<div class="bd-bar"><i style="width:' + p + '%"></i></div>';
+    bd.appendChild(div);
+  });
+
+  if (pct >= 70) burst(window.innerWidth / 2, window.innerHeight / 2, 'correct');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* =========================================================
+   RESTART
+   ========================================================= */
+document.getElementById('restartBtn').addEventListener('click', () => {
+  resultScreen.style.display = 'none';
+  quizScreen.style.display = 'block';
+
+  idx = 0;
+  answered = false;
+  userAnswers.fill(null);
+
+  buildMap();
+  renderQuestion();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* =========================================================
+   EMOJI BURST
+   ========================================================= */
+function burst(x, y, type){
+  const pool = type === 'correct'
+    ? ['💚','💖','🌟','🍀','✨','🌿','💚','🥰']
+    : ['💔','🥀','💧','😢','💔'];
+
+  const count = type === 'correct' ? 12 : 9;
+
+  for (let i = 0; i < count; i++){
+    const el = document.createElement('div');
+    el.className = 'float-emoji';
+    el.textContent = pool[Math.floor(Math.random() * pool.length)];
+
+    const dx = (Math.random() - 0.5) * 260;
+    el.style.setProperty('--dx', dx + 'px');
+    el.style.left = (x + (Math.random() - 0.5) * 40) + 'px';
+    el.style.top  = (y + (Math.random() - 0.5) * 30) + 'px';
+    el.style.fontSize = (18 + Math.random() * 24) + 'px';
+    el.style.animationDelay = (Math.random() * 0.18) + 's';
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1800);
+  }
+
+  const big = document.createElement('div');
+  big.className = 'float-emoji';
+  big.textContent = type === 'correct' ? '💚' : '💔';
+  big.style.left = x + 'px';
+  big.style.top  = y + 'px';
+  big.style.fontSize = '54px';
+  big.style.animationDuration = '1.1s';
+  document.body.appendChild(big);
+  setTimeout(() => big.remove(), 1400);
+}
+
+/* =========================================================
+   KEYBOARD SUPPORT
+   ========================================================= */
+document.addEventListener('keydown', (e) => {
+  if (quizScreen.style.display === 'none') return;
+
+  const key = e.key.toUpperCase();
+
+  if (!answered){
+    let i = -1;
+    if (['A','B','C','D','E'].includes(key)) i = LETTERS.indexOf(key);
+    if (['1','2','3','4','5'].includes(key)) i = parseInt(key) - 1;
+
+    if (i >= 0){
+      const btns = optionsBox.querySelectorAll('.option');
+      if (btns[i]) btns[i].click();
+    }
+  } else if (e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    nextBtn.click();
+  }
+});
+</script>
+</body>
+</html>
